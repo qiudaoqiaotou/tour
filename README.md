@@ -44,3 +44,5 @@
 ## 引入的 Skill
 
 `skills/trip-planner/` 来自 GitHub 仓库 [skywain/trip-planner-skill](https://github.com/skywain/trip-planner-skill)，MIT 协议，版权归原作者所有。用途：行程规划、机票比价、酒店筛选、小时级行程与主题化渲染方法论框架。本看板的具体数据与分析由本项目自行产出。
+
+> 为便于 git 推送，本仓库保留了该 skill 的**方法核心**（`SKILL.md`、`references/`、`scripts/`、`themes/` 渲染器代码、`README.md`、`LICENSE`），未纳入体积较大的可重建美术素材与整页示例（`themes/assets/*.webp`、`docs/showcase/*.webp`、`examples/**/*.html`）。详情见 `skills/trip-planner/README-local-note.md`；素材可到上游仓库获取。
