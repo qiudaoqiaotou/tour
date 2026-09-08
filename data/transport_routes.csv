@@ -1,13 +1,17 @@
-city,route,mode,direction,date,duration_hrs,price_cny,base_price_cny,premium_pct,reliability,source,label,as_of,note
-盐城,上海虹桥→盐城 G3144,高铁,去程,9/20–10/10,2.05,161,161,0,高,https://trains.ctrip.com/trainbooking/shanghai-yancheng2/gaotie,[report-estimate],2026-09-09,二等座固定161;高铁国庆不涨价,溢价只体现为余票紧张
-盐城,上海→盐城 D2146,动车,去程,9/20–10/10,1.80,147,147,0,高,https://trains.ctrip.com/trainbooking/shanghai-yancheng2/gaotie,[report-estimate],2026-09-09,最快~1h48m
-盐城,上海虹桥→盐城大丰 D2152,动车,去程,9/20–10/10,2.13,133,133,0,高,https://trains.ctrip.com/trainbooking/shanghai-yancheng2/gaotie,[report-estimate],2026-09-09,直达盐城大丰(荷兰花海/天沐温泉所在区),最划算
-盐城,盐城→上海(返程),高铁/动车,返程,9/20–10/10,2.05,161,161,0,高,https://trains.ctrip.com/trainbooking/shanghai-yancheng2/gaotie,[report-estimate],2026-09-09,往返约¥300;10/4–7返程价较去年低超20%
-盐城,高铁(错峰窗口),高铁,往返,9/22或9/28–30,2,150,150,-30,高,https://fund.eastmoney.com/a/202609043865439735.html,[report-estimate],2026-09-04,9/22出发较中秋首日低30%/较国庆首日低50%;9/27–10/1为近三年同期最低
-丽水,上海南→丽水 G7193,高铁,往返,9/20–10/10,2.60,204,204,0,高,https://www.crecc.com/huoche/g7193.html,[rail-timetable],2026-08-28,直达;最快+最稳之选
-松阳,上海南→松阳 C481/C495(衢宁线),城际,往返,9/20–10/10,5.42,159,159,0,中,https://www.gaotie.com.cn/checi/C481-C484.html,[rail-timetable],2026-08-09,单程最便宜¥159;每日约2班;较慢
-松阳,丽水高铁+短途大巴,高铁+大巴,往返,9/20–10/10,3.2,225,225,0,中,https://www.crecc.com/huoche/g7193.html,[estimate],2026-08-28,平衡之选
-威海,上海虹桥→威海 D2152,动车,往返,9/20–10/10,7.20,446,446,0,中,https://www.crecc.com/huoche/d2152.html,[rail-timetable],2026-08-28,直达但~7h;人流低但交通久
-腾冲,上海→昆明→腾冲,飞机(经昆明中转),去程,9/20–10/10,5.5,1500,1000,50,中,https://howlongfly.hk/flight-time/sha/tcz/,[estimate],2026-09-09,PVG→KMG约3.5h+KMG→TCZ约1.3h;国庆溢价最高
-腾冲,上海→腾冲 往返(含中转),飞机,往返,10/1–10/7,11,3200,2100,52,中,https://howlongfly.hk/flight-time/sha/tcz/,[estimate],2026-09-09,旺季全年高位;无稳定直达
-建水,上海→昆明→建水,飞机+城际,往返,9/20–10/10,6,1200,950,26,中,https://www.crecc.com/huoche/c577.html,[estimate],2026-08-28,昆明→建水C577 2h17m ¥75;全程约15h高铁更慢
+city,mode,mode_label,duration,base_price,peak_price,premium_pct,source,label,as_of,note
+盐城,rail,高铁/动车 直达,约2h,161,161,0,https://trains.ctrip.com/trainbooking/shanghai-yancheng2/gaotie,[report-estimate],2026-09-09,G3144 上海虹桥~盐城 2h03m 二等座¥161；D2152直达盐城大丰¥133
+丽水,rail,高铁 直达,约2.6h,204,204,0,https://www.crecc.com/huoche/g7193.html,[rail-timetable],2026-08-28,G7193 上海南~丽水 ¥204；最稳
+松阳,rail,城际 直达,约5.4h,159,159,0,https://www.gaotie.com.cn/checi/C481-C484.html,[rail-timetable],2026-08-09,C481/C495 上海南~松阳 ¥159(每日2班、慢)；或丽水高铁+大巴
+威海,rail,动车 直达,约7.2h,446,446,0,https://www.crecc.com/huoche/d2152.html,[rail-timetable],2026-08-28,D2152 上海虹桥~威海 ¥446；直达但久
+腾冲,flight,飞机(经昆明转),约5.5h,1000,1500,50,https://howlongfly.hk/flight-time/sha/tcz/,[estimate],2026,PVG→KMG~3.5h+KMG→TCZ~1.3h；无直达·溢价高
+建水,flight,飞机+城际,约6h,950,1200,26,https://www.crecc.com/huoche/c577.html,[estimate],2026-08-28,上海→昆明+昆明→建水C577(2h17m ¥75)
+清迈,flight,直飞 为主,约4.5h,1200,1700,42,https://tw.trip.com/flights/city-sha-airport-cnx/,[estimate],2026,上海(浦东/虹桥~4.5h)直飞·国庆溢价高
+槟城,flight,直飞/转机,约5h,1100,1500,36,https://tw.trip.com/flights/city-sha-airport-cnx/,[estimate],2026,~5h·免签30天
+芽庄,flight,直飞,约3.5h,1000,1400,40,,[estimate],2026,~3.5h·90天电子签
+札幌,flight,直飞/转机,约6h,1500,2200,47,,[estimate],2026,~6h·需签证·秋季平季
+首尔,flight,直飞,约2h,900,1400,56,https://www.trip.com/flights/shanghai-to-seoul/,[estimate],2026,~2h·¥109起/单程·出境热度#2
+东京,flight,直飞,约3h,1200,1900,58,https://us.trip.com/flights/shanghai-to-tokyo/,[estimate],2026,~3h·¥141起/单程·人气高但趋缓
+巴厘岛,flight,直飞(漫长),约7h,1700,2500,47,https://news.airbnb.com/zh/,[estimate],2026-08-24,~6-7h·落地签/电子签·东南亚Top
+新加坡,flight,直飞,约5.5h,1500,2100,40,,[estimate],2026,~5.5h·免签30天·高人流
+阿拉木图,flight,转机,约6h,1400,1700,21,,[estimate],2026,~6h·免签30天·冷门·溢价低
+乌兰巴托,flight,经北京转,约4.5h,1300,1600,23,https://www.travelarbitrage.net/blog/mongolia-visa-official-guide-2026,[estimate],2026-08-30,~4.5h(经北京)·K2电子签·冷门

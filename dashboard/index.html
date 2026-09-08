@@ -3,634 +3,397 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>国庆出行看板 · 上海出发 · 2026</title>
+<title>国庆出行看板 · 上海出发 · 2026 · 地区→城市漏斗</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <style>
   :root{
-    --paper:#f4efe6;
-    --paper-2:#ece5d6;
-    --ink:#161e27;
-    --ink-soft:#3a4657;
-    --deep:#0e2030;
-    --deep-2:#122b3f;
-    --verm:#bb3a2c;
-    --verm-deep:#99301f;
-    --gold:#c79a3a;
-    --teal:#2d6b66;
-    --line:#d8cfbd;
-    --muted:#7c7466;
-    --card:#fffdf8;
-    --ok:#2d6b66;
-    --warn:#bb3a2c;
+    --paper:#f3eee5; --paper-2:#ebe3d3; --ink:#171f28; --ink-soft:#3b4757;
+    --deep:#0d1f30; --deep-2:#123045; --verm:#bb3a2c; --verm-deep:#95291b;
+    --gold:#c5922f; --teal:#2c6b66; --slate:#4c6f8f; --line:#d7cdbb;
+    --muted:#7c7466; --card:#fffdf8; --ok:#2c6b66; --warn:#bb3a2c;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    font-family:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
-    color:var(--ink);
-    background:var(--paper);
-    line-height:1.72;
-    font-size:16px;
-  }
+  body{font-family:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--paper);line-height:1.72;font-size:16px}
   h1,h2,h3,.serif{font-family:"Noto Serif SC","Songti SC",serif}
-  .num,.metric-val{font-family:"Space Grotesk","Noto Sans SC",sans-serif}
-
-  /* top bar */
-  .topbar{
-    position:sticky;top:0;z-index:50;
-    display:flex;align-items:center;justify-content:space-between;gap:1rem;
-    padding:.8rem clamp(1rem,4vw,3rem);
-    background:rgba(244,239,230,.92);backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-  }
-  .brand{display:flex;align-items:center;gap:.6rem;font-weight:600;font-size:1.02rem;letter-spacing:.02em}
+  .num,.metric-val{font-family:"Space Grotesk","Noto Sans SC",sans-serif;font-variant-numeric:tabular-nums}
+  .topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem clamp(1rem,4vw,3rem);background:rgba(243,238,229,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:.6rem;font-weight:600;font-size:1.02rem}
   .brand .dot{width:.72rem;height:.72rem;border-radius:50%;background:var(--verm)}
-  .nav{display:flex;gap:1.2rem;font-size:.9rem}
+  .nav{display:flex;gap:1.1rem;font-size:.9rem;flex-wrap:wrap}
   .nav a{color:var(--ink-soft);text-decoration:none;padding:.2rem 0;border-bottom:2px solid transparent}
   .nav a:hover,.nav a.active{border-bottom-color:var(--verm);color:var(--ink)}
-  .nav a span{font-family:"Space Grotesk",sans-serif;color:var(--muted);margin-right:.25rem;font-size:.8rem}
-
-  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1rem,4vw,3rem)}
-
-  /* hero */
-  .hero{padding:clamp(2.5rem,6vw,4.5rem) 0 1.5rem}
-  .eyebrow{font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--verm-deep);font-weight:600}
-  .hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.22;font-weight:700;margin:.6rem 0 1rem;max-width:20em}
-  .hero .kicker{font-size:1.1rem;color:var(--ink-soft);max-width:46em}
-  .hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-top:2rem}
-  .stat{
-    background:var(--deep);color:var(--paper);
-    border-radius:14px;padding:1.2rem 1.3rem;
-    border:1px solid rgba(255,255,255,.08);
-  }
-  .stat .lbl{font-size:.78rem;letter-spacing:.08em;color:#c8bfa9;text-transform:uppercase}
-  .stat .val{font-size:1.9rem;font-weight:600;margin-top:.3rem;line-height:1.15}
-  .stat .sub{font-size:.82rem;color:#a9a08d;margin-top:.35rem}
-  .stat.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
-
-  section{padding:clamp(2rem,5vw,3.4rem) 0;border-top:1px solid var(--line)}
-  .sec-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.6rem}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(1rem,4vw,3rem)}
+  .hero{padding:clamp(2.2rem,5vw,4rem) 0 1.4rem}
+  .eyebrow{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:var(--verm-deep);font-weight:600}
+  .hero h1{font-size:clamp(1.9rem,4.5vw,3.1rem);line-height:1.22;font-weight:700;margin:.6rem 0 .9rem;max-width:22em}
+  .hero .kicker{font-size:1.06rem;color:var(--ink-soft);max-width:52em}
+  .hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-top:1.8rem}
+  .stat{background:var(--deep);color:var(--paper);border-radius:14px;padding:1.1rem 1.2rem;border:1px solid rgba(255,255,255,.08)}
+  .stat .lbl{font-size:.76rem;letter-spacing:.08em;color:#c8bfa9;text-transform:uppercase}
+  .stat .val{font-size:1.75rem;font-weight:600;margin-top:.25rem;line-height:1.15}
+  .stat .sub{font-size:.8rem;color:#a9a08d;margin-top:.3rem}
+  section{padding:clamp(2rem,5vw,3.2rem) 0;border-top:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:.4rem}
   .sec-head .no{font-family:"Space Grotesk",sans-serif;color:var(--verm);font-size:1.05rem;font-weight:600}
-  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:700}
-  .sec-head .hint{color:var(--muted);font-size:.9rem}
-
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.4rem 1.5rem}
-  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
-  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
-
-  .chart{width:100%;height:340px}
-  .chart.tall{height:400px}
-
-  table{width:100%;border-collapse:collapse;font-size:.92rem}
-  th,td{padding:.62rem .7rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-  th{font-size:.8rem;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;font-weight:600}
-  tbody tr:hover{background:rgba(199,154,58,.06)}
-  td.num,th.num{font-family:"Space Grotesk",sans-serif;font-variant-numeric:tabular-nums}
-
-  .pill{display:inline-block;padding:.12rem .55rem;border-radius:999px;font-size:.74rem;font-weight:600;border:1px solid transparent}
-  .pill.ok{background:rgba(45,107,102,.12);color:var(--ok);border-color:rgba(45,107,102,.3)}
+  .sec-head h2{font-size:clamp(1.35rem,2.8vw,1.9rem);font-weight:700}
+  .sec-sub{color:var(--muted);font-size:.92rem;margin:.2rem 0 1.4rem;max-width:62em}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.3rem 1.4rem}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1rem}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+  .chart{width:100%;height:360px}
+  .chart.sm{height:190px}
+  table{width:100%;border-collapse:collapse;font-size:.9rem}
+  th,td{padding:.6rem .65rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.76rem;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;font-weight:600}
+  tbody tr:hover{background:rgba(197,146,47,.06)}
+  td.num,th.num{font-family:"Space Grotesk",sans-serif}
+  .pill{display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.72rem;font-weight:600;border:1px solid transparent}
+  .pill.ok{background:rgba(44,107,102,.12);color:var(--ok);border-color:rgba(44,107,102,.3)}
   .pill.warn{background:rgba(187,58,44,.1);color:var(--warn);border-color:rgba(187,58,44,.25)}
-  .pill.gold{background:rgba(199,154,58,.14);color:#8a671f;border-color:rgba(199,154,58,.3)}
-  .pill.flag{font-family:"Space Grotesk",sans-serif}
-
-  .scorecell{display:inline-flex;gap:.22rem;align-items:center}
-  .scorecell .bar{width:11px;height:11px;border-radius:2px;background:var(--line)}
+  .pill.gold{background:rgba(197,146,47,.14);color:#7d5d1b;border-color:rgba(197,146,47,.3)}
+  .pill.slate{background:rgba(76,111,143,.12);color:var(--slate);border-color:rgba(76,111,143,.3)}
+  .scorecell{display:inline-flex;gap:.2rem;align-items:center}
+  .scorecell .bar{width:10px;height:10px;border-radius:2px;background:var(--line)}
   .scorecell .bar.on{background:var(--verm)}
-
-  .recstrip{background:var(--deep);color:var(--paper);border-radius:14px;padding:1.6rem 1.8rem;margin-top:1.4rem}
-  .recstrip h3{color:#fff;font-size:1.25rem;margin-bottom:.6rem}
-  .recstrip p{color:#cdc4b0;font-size:.98rem}
-  .recstrip .tag{display:inline-block;background:var(--gold);color:#2a2007;font-size:.76rem;font-weight:600;padding:.2rem .6rem;border-radius:999px;margin-top:.8rem}
-
-  .hotel{border-left:4px solid var(--gold);background:linear-gradient(180deg,var(--card),#fbf6e9)}
-  .tl{list-style:none;position:relative;margin-left:.4rem}
-  .tl:before{content:"";position:absolute;left:.42rem;top:.35rem;bottom:.35rem;width:2px;background:var(--line)}
-  .tl li{position:relative;padding:.55rem 0 .55rem 1.9rem}
-  .tl li:before{content:"";position:absolute;left:.17rem;top:1rem;width:.5rem;height:.5rem;border-radius:50%;background:var(--verm)}
-  .tl .day{display:block;font-family:"Space Grotesk",sans-serif;color:var(--verm-deep);font-size:.8rem;font-weight:600;letter-spacing:.04em}
-  .tl .t{font-weight:600}
-  .tl .d{color:var(--ink-soft);font-size:.92rem}
-
-  .src{font-size:.8rem;color:var(--muted)}
-  .src a{color:var(--teal);word-break:break-all}
-  .legend{display:flex;flex-wrap:wrap;gap:1rem;font-size:.82rem;color:var(--muted);margin-top:.6rem}
-  .legend b{color:var(--ink)}
-  footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem}
+  .region-badge{font-size:.68rem;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:.04rem .4rem;margin-left:.4rem}
+  .funnel{display:flex;align-items:center;gap:.6rem;font-weight:600;color:var(--ink-soft);margin:1rem 0}
+  .funnel .arr{color:var(--verm);font-family:"Space Grotesk",sans-serif}
+  .recstrip{background:var(--deep);color:var(--paper);border-radius:14px;padding:1.4rem 1.6rem;margin-top:1.4rem}
+  .recstrip h3{color:#fff;font-size:1.15rem;margin-bottom:.5rem}
+  .recstrip p{color:#cdc4b0;font-size:.95rem}
+  .recstrip .tag{display:inline-block;background:var(--gold);color:#2a2007;font-size:.74rem;font-weight:600;padding:.18rem .6rem;border-radius:999px;margin-top:.7rem}
+  .transport-grid .card .head{display:flex;justify-content:space-between;align-items:baseline;gap:.4rem;margin-bottom:.5rem;flex-wrap:wrap}
+  .transport-grid .card .city{font-family:"Noto Serif SC",serif;font-weight:700;font-size:1.05rem}
+  .transport-grid .card .stat-row{display:flex;gap:1.1rem;flex-wrap:wrap;margin-top:.5rem;font-size:.85rem;color:var(--ink-soft)}
+  .transport-grid .card .stat-row b{font-family:"Space Grotesk",sans-serif}
+  .plan{border-left:4px solid var(--gold);background:linear-gradient(180deg,var(--card),#fbf5e8)}
+  .plan .p-head{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.8rem}
+  .plan h3{font-size:1.2rem}
+  .plan .sub{color:var(--muted);font-size:.86rem;margin-top:-.3rem}
+  .plan .block{margin-top:.9rem}
+  .plan .block h4{font-size:.95rem;color:var(--ink);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
+  .plan .block h4:before{content:"";width:.5rem;height:.5rem;border-radius:2px;background:var(--gold)}
+  .route{list-style:none}
+  .route li{position:relative;padding:.45rem 0 .45rem 1.6rem;border-bottom:1px solid var(--line);font-size:.92rem}
+  .route li:before{content:"";position:absolute;left:0;top:1rem;width:.5rem;height:.5rem;border-radius:50%;background:var(--verm)}
+  .route .how{color:var(--muted)}
+  footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
   footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem}
   footer h4{font-family:"Noto Serif SC",serif;font-size:1rem;color:var(--ink);margin-bottom:.6rem}
   footer ul{list-style:none}
   footer li{margin-bottom:.4rem}
-  .disc{background:rgba(187,58,44,.08);border:1px solid rgba(187,58,44,.2);border-radius:10px;padding:.9rem 1.1rem;font-size:.86rem;color:#7c2f20;margin-top:1.4rem}
-
-  @media(max-width:720px){
-    .nav{display:none}
-    .chart{height:300px}
-  }
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto}
-    *{animation:none!important;transition:none!important}
-  }
+  .disc{background:rgba(187,58,44,.08);border:1px solid rgba(187,58,44,.2);border-radius:10px;padding:.9rem 1.1rem;font-size:.85rem;color:#7c2f20;margin-top:1.4rem}
+  .note{background:rgba(44,107,102,.08);border:1px solid rgba(44,107,102,.22);border-radius:10px;padding:.7rem .95rem;font-size:.86rem;color:#1f554f;margin-top:.9rem}
+  @media(max-width:720px){.nav{display:none}.chart{height:300px}.chart.sm{height:170px}}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <header class="topbar">
-  <div class="brand"><span class="dot"></span>国庆出行看板 · 沪上出发</div>
+  <div class="brand"><span class="dot"></span>国庆出行看板 · 沪上出发 · 地区→城市漏斗</div>
   <nav class="nav" id="nav">
-    <a href="#overview"><span>01</span>总览</a>
-    <a href="#crowd"><span>02</span>人流</a>
-    <a href="#filter"><span>03</span>筛选</a>
-    <a href="#transport"><span>04</span>交通</a>
-    <a href="#play"><span>05</span>玩法</a>
-    <a href="#visa"><span>06</span>签证</a>
+    <a href="#regions"><span>01</span>区域人流</a>
+    <a href="#cities"><span>02</span>城市筛选</a>
+    <a href="#transport"><span>03</span>交通</a>
+    <a href="#plan"><span>04</span>计划</a>
   </nav>
 </header>
 
 <div class="hero wrap" id="overview">
-  <div class="eyebrow">2026 国庆决策看板 · 数据研究 = 2026-09，估算已标注</div>
-  <h1 id="heroTitle">去一个人不多的、有分量的地方，过一个不挤的国庆</h1>
-  <p class="kicker" id="heroKicker">从上海出发，覆盖 9/20–10/10。筛选逻辑：人流量不大 · 有一定知名度 · 国庆前后人流稳定（无过度景区营销风险）。</p>
+  <div class="eyebrow">2026 国庆决策看板 · 上海出发 · 数据研究 2026-09-08 · 估算已标注</div>
+  <h1 id="heroTitle">从「地区」收窄到「城市」，再筛选到一份可执行的国庆计划</h1>
+  <p class="kicker" id="heroKicker">主线：<b>地区(国内省份 / 周边国家)</b> → <b>候选城市(国内外统一评分)</b> → <b>上海⇄目的地交通</b> → <b>最终计划(交通+住宿+景点+接驳+签证)</b>。</p>
   <div class="hero-stats" id="heroStats"></div>
 </div>
 
-<section class="wrap" id="crowd">
-  <div class="sec-head"><span class="no">02</span><div><h2>国庆前后的人流</h2><div class="hint">以 上海 为出发地，看中国及周边国家城市在 9/20–10/10 的出行/人流变化</div></div></div>
+<section class="wrap" id="regions">
+  <div class="sec-head"><span class="no">01</span><div><h2>国庆前后的人流 · 按地区分类</h2></div></div>
+  <p class="sec-sub">以<strong>上海为出发点</strong>，先看「中国周边」各<strong>国内省份</strong>与<strong>周边国家</strong>在国庆前后(9/20–10/10)的人流变化，再据此下沉到城市。</p>
+  <div class="funnel">地区(省份/国家) <span class="arr">→</span> 城市 <span class="arr">→</span> 上海⇄目的地交通 <span class="arr">→</span> 计划</div>
   <div class="grid2">
-    <div class="card">
-      <div class="chart" id="crowdCurve"></div>
-      <p class="src" id="crowdCurveCaption"></p>
-    </div>
-    <div class="card">
-      <div class="chart" id="crowdCity"></div>
-      <p class="src" id="crowdCityCaption"></p>
-    </div>
+    <div class="card"><div class="chart" id="chartRegionsDom"></div><p class="srcline" id="chartRegionsDomCaption"></p></div>
+    <div class="card"><div class="chart" id="chartRegionsIntl"></div><p class="srcline" id="chartRegionsIntlCaption"></p></div>
   </div>
-  <div class="grid3" id="shanghaiCards" style="margin-top:1rem"></div>
-  <div class="legend" id="crowdLegend"></div>
+  <div class="grid3" id="regionCards" style="margin-top:1rem"></div>
+  <div class="note" id="regionNote"></div>
 </section>
 
-<section class="wrap" id="filter">
-  <div class="sec-head"><span class="no">03</span><div><h2>城市筛选</h2><div class="hint">得分 = 人流量C + 知名度F + 稳定性S + 营销风险M（各 1–5）</div></div></div>
+<section class="wrap" id="cities">
+  <div class="sec-head"><span class="no">02</span><div><h2>城市筛选 · <span style="color:var(--verm)">国内外统一评分</span></h2></div></div>
+  <p class="sec-sub">从上面各「地区」中选出核心城市（国内 + 国外），统一按 <b>人流量 C · 知名度 F · 人流稳定 S · 无营销炒作 M</b>（各 1–5）打分。总分 T = C+F+S+M，≥15 且 C/F 均衡者为候选。</p>
   <div class="card" style="overflow-x:auto">
-    <table id="scoreTable">
-      <thead>
-        <tr><th>城市</th><th>区域</th><th>人流 C</th><th>知名 F</th><th>稳定 S</th><th>营销 M</th><th>总分 T</th><th>判定</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <table id="cityTable"><thead><tr><th>城市</th><th>地区</th><th>类型</th><th>人流 C</th><th>知名 F</th><th>稳定 S</th><th>营销 M</th><th class="num">总分</th><th>判定</th></tr></thead><tbody></tbody></table>
   </div>
-  <div class="card" style="margin-top:1rem">
-    <div class="chart" id="scoreChart"></div>
-  </div>
+  <div class="card" style="margin-top:1rem"><div class="chart" id="chartCityScore"></div></div>
   <div class="card" id="excluded" style="margin-top:1rem">
-    <h3 style="margin-bottom:.6rem;font-size:1.1rem">排除的「营销型流量」城市</h3>
+    <h3 style="margin-bottom:.5rem;font-size:1.05rem">排除的「高人流 / 营销型」城市</h3>
     <div id="excludedList"></div>
-    <p class="src" id="excludedSrc"></p>
+    <p class="srcline" id="excludedSrc"></p>
   </div>
-  <div class="recstrip" id="filterRec">
+  <div class="recstrip" id="cityRec">
     <h3>筛选结论</h3>
-    <p id="filterRecText"></p>
-    <span class="tag">推荐城市</span>
+    <p id="cityRecText"></p>
+    <span class="tag">进入下一轮</span>
   </div>
 </section>
 
 <section class="wrap" id="transport">
-  <div class="sec-head"><span class="no">04</span><div><h2>上海 ⇄ 候选城市 · 往返交通</h2><div class="hint">窗口 2026-09-20 → 2026-10-10；溢价 = (国庆价 − 平日价) / 平日价</div></div></div>
-  <div class="card" style="overflow-x:auto">
-    <table id="routeTable">
-      <thead>
-        <tr><th>城市</th><th>方式</th><th>方向</th><th>日期</th><th>时长(时)</th><th class="num">票价(¥)</th><th class="num">平日(¥)</th><th class="num">溢价</th><th>可达性</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-  <div class="grid2" style="margin-top:1rem">
-    <div class="card"><div class="chart" id="transportChart"></div></div>
-    <div class="card" id="transportRec">
-      <h3 style="margin-bottom:.6rem;font-size:1.1rem">推荐走法</h3>
-      <p id="transportRecText"></p>
-    </div>
-  </div>
-  <p class="src" id="transportCaption"></p>
+  <div class="sec-head"><span class="no">03</span><div><h2>上海 ⇄ 各候选目的地 · 交通价格与时长</h2></div></div>
+  <p class="sec-sub">每个候选城市一张卡：<b>价格曲线(9/20–10/10)</b> + 方式/时长/溢价。高铁为 12306 固定票价(曲线平、只余票紧张)；机票随假期波动(国庆首/末高、中段低)。</p>
+  <div class="transport-grid grid3" id="transportGrid"></div>
+  <div class="note" id="transportNote"></div>
 </section>
 
-<section class="wrap" id="play">
-  <div class="sec-head"><span class="no">05</span><div><h2>玩法 · 住宿 · 旅行计划</h2><div class="hint">酒店优先：近景点/有接送/特色（温泉）</div></div></div>
-  <div class="grid2">
-    <div class="card hotel" id="hotelCard">
-      <h3 style="margin-bottom:.6rem;font-size:1.15rem">推荐酒店 · <span id="primaryCity"></span></h3>
-      <div id="hotelBody"></div>
-    </div>
-    <div class="card">
-      <h3 style="margin-bottom:.6rem;font-size:1.15rem">住宿到景点的可达性</h3>
-      <div id="accessBody"></div>
-    </div>
-  </div>
-  <div class="card" style="margin-top:1rem">
-    <h3 style="margin-bottom:.8rem;font-size:1.15rem">行程安排 · <span id="primaryCity2"></span></h3>
-    <ol class="tl" id="itinerary"></ol>
-    <p id="itineraryNote" style="margin-top:.8rem;color:var(--ink-soft);font-size:.92rem"></p>
-  </div>
-
-  <div class="card" style="margin-top:1rem;border-left:4px solid var(--verm)">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.6rem;margin-bottom:.8rem">
-      <h3 style="font-size:1.15rem" id="upgradeTitle"></h3>
-      <span class="pill gold">升级备选 · 温泉 + 古镇</span>
-    </div>
-    <div class="grid2" style="gap:1.6rem">
-      <div id="upgradeHotel"></div>
-      <div>
-        <div style="font-size:.85rem;color:var(--muted);letter-spacing:.05em;margin-bottom:.4rem">行程</div>
-        <ol class="tl" id="upgradeItinerary"></ol>
-      </div>
-    </div>
-    <p id="upgradeNote" style="margin-top:.8rem;color:var(--ink-soft);font-size:.92rem"></p>
-  </div>
-</section>
-
-<section class="wrap" id="visa">
-  <div class="sec-head"><span class="no">06</span><div><h2>签证</h2><div class="hint">仅当目的地为境外时</div></div></div>
-  <div id="visaBody">
-    <p>本次推荐以境内城市为主；如考虑周边国家，见下方签证说明。</p>
-  </div>
-  <div class="card" style="margin-top:1rem;overflow-x:auto">
-    <table id="visaTable" style="display:none">
-      <thead><tr><th>国家/地区</th><th>签证类型</th><th>办理流程</th><th class="num">办理时间</th><th>申请渠道</th><th>费用</th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-  <p class="src" id="visaSrc"></p>
+<section class="wrap" id="plan">
+  <div class="sec-head"><span class="no">04</span><div><h2>最终计划 · 交通 + 住宿 + 景点 + 接驳</h2></div></div>
+  <p class="sec-sub">经两轮筛选后的最终候选。住宿优先「住得好、有特色、方便到景点」；展示<strong>从住宿到景点、景点之间</strong>如何来往；国外候选附<strong>签证/入境</strong>说明。</p>
+  <div id="plans"></div>
 </section>
 
 <footer class="wrap">
   <div class="cols">
-    <div>
-      <h4>数据来源</h4>
-      <ul id="sourceList"></ul>
-    </div>
-    <div>
-      <h4>标签说明</h4>
-      <ul class="legend" style="flex-direction:column;gap:.5rem" id="labelList"></ul>
-    </div>
-    <div>
-      <h4>方法</h4>
-      <ul>
-        <li>窗口：2026-09-20 → 2026-10-10</li>
-        <li>09-20、10-10 为调休上班日</li>
-        <li>国庆 10/1–7；中秋 9/25–27（不调休）</li>
-        <li>评分细则见 <code>docs/methodology.md</code></li>
-      </ul>
-    </div>
+    <div><h4>数据来源</h4><ul id="sourceList"></ul></div>
+    <div><h4>标签说明</h4><ul class="legend" style="flex-direction:column;gap:.5rem" id="labelList"></ul></div>
+    <div><h4>方法</h4><ul>
+      <li>窗口：2026-09-20 → 2026-10-10</li>
+      <li>09-20、10-10 为调休上班日</li>
+      <li>中秋 9/25–27；国庆 10/1–7（超长假期）</li>
+      <li>评分细则见 <code>docs/methodology.md</code></li>
+    </ul></div>
   </div>
-  <div class="disc">本看板为决策参考，不提供预订。价格、班次、签证政策、人流以官方/平台实时为准；无公开来源处用历史行为推算并标注 [estimate]。数据研究日期 2026-09-08。</div>
+  <div class="disc">本看板为决策参考，不提供预订。价格、班次、签证、人流以官方/平台为准；2026 国庆数据未发布处用 OTA 预报/历史推算并标注 [estimate]。数据研究日期 2026-09-08。国外候选的具体航班/酒店价格与玩法为 [estimate]/[guide-observation]，出行前请核实。</div>
 </footer>
 
 <script>
-const DATA = {
-  meta:{asOf:"2026-09-08",origin:"上海",window:"2026-09-20 → 2026-10-10"},
+/* ---------- DATA ---------- */
+const NORM=[0.12,0.2,0.2,0.22,0.28,0.7,0.62,0.5,0.32,0.28,0.5,1.0,0.92,0.8,0.62,0.45,0.32,0.24,0.15,0.1,0.1];
+const DATES=["09-20班","09-21","09-22","09-23","09-24","09-25中秋","09-26","09-27","09-28","09-29","09-30","10-01国庆","10-02","10-03","10-04","10-05","10-06","10-07","10-08","10-09","10-10班"];
+
+const DATA={
+  meta:{asOf:"2026-09-08",window:"2026-09-20 → 2026-10-10"},
   hero:{
-    title:"去一个人不多的、有分量的地方，过一个不挤的国庆",
-    kicker:"从上海出发，覆盖 9/20–10/10。筛选逻辑：人流量不大 · 有一定知名度 · 国庆前后人流稳定（无过度景区营销风险）。",
+    title:"从「地区」收窄到「城市」，再筛选到一份可执行的国庆计划",
+    kicker:"主线：地区(国内省份 / 周边国家) → 候选城市(国内外统一评分) → 上海⇄目的地交通 → 最终计划(交通+住宿+景点+接驳+签证)。",
     stats:[
-      {lbl:"2025 国庆中秋 出游",val:"8.88亿人次",sub:"8 天 · 同比 +1.23亿 [official-data]"},
-      {lbl:"2025 出游总花费",val:"8090.06亿元",sub:"同比 +1081.89亿元 [official-data]"},
       {lbl:"2026 国庆 放假",val:"10/1–10/7",sub:"7 天 · 调休；中秋 9/25–27 [official-data]"},
-      {lbl:"研究窗口",val:"9/20–10/10",sub:"含中期小高峰 + 国庆主峰"}
+      {lbl:"超长假期",val:"13 天",sub:"中秋+请3天+国庆 「请3休13」[news]"},
+      {lbl:"2025 出游基线",val:"8.88亿人次",sub:"国庆中秋8天 · 总花费8090.06亿 [official-data]"},
+      {lbl:"价格窗口",val:"9/27–10/1",sub:"近三年同期最低；9/22出发更省 [report-estimate]"}
     ]
   },
-  crowd:{
-    flowCurve:[
-      {date:"09-20 班",base:70,mid:0,nat:0},{date:"09-21",base:100,mid:0,nat:0},{date:"09-22",base:100,mid:0,nat:0},
-      {date:"09-23",base:100,mid:0,nat:0},{date:"09-24",base:104,mid:0,nat:0},{date:"09-25 中秋",base:104,mid:80,nat:0},
-      {date:"09-26",base:106,mid:72,nat:0},{date:"09-27",base:104,mid:52,nat:0},{date:"09-28",base:102,mid:20,nat:0},
-      {date:"09-29",base:104,mid:12,nat:0},{date:"09-30",base:112,mid:8,nat:0},{date:"10-01 国庆",base:116,mid:0,nat:96},
-      {date:"10-02",base:118,mid:0,nat:88},{date:"10-03",base:114,mid:0,nat:76},{date:"10-04",base:110,mid:0,nat:58},
-      {date:"10-05",base:106,mid:0,nat:44},{date:"10-06",base:102,mid:0,nat:34},{date:"10-07",base:100,mid:0,nat:26},
-      {date:"10-08",base:96,mid:0,nat:10},{date:"10-09",base:94,mid:0,nat:4},{date:"10-10 班",base:68,mid:0,nat:0}
-    ],
-    flowCaption:"人流曲线为「相对指数」示意（平时=100），由 2026 中秋+国庆「请3休13」14 天窗口的峰段结构推算：<b>9/25 中秋首峰</b>（出发人数 &gt; 国庆首日）→ <b>9/28–30 周边错峰</b> → <b>10/1–3 国庆主峰</b>（亲子中短线）→ <b>10/4+ 价格回落返程</b>。[estimate, 依据 report-estimate]",
-    cityTop:[
-      {city:"北京",value:96},{city:"上海",value:93},{city:"成都",value:90},{city:"南京",value:88},{city:"广州",value:86},
-      {city:"重庆",value:84},{city:"西安",value:82},{city:"杭州",value:80},{city:"深圳",value:78},{city:"呼伦贝尔/阿勒泰",value:76}
-    ],
-    cityCaption:"2026 国庆人流拥挤度 TOP 城市（航旅纵横/携程/去哪儿 Top10 综合）[report-estimate，2026-08]。<b>上海既是出发地、又是第 2 拥挤城市</b>；江苏为第 1 热门省份。",
-    shanghai:[
-      {lbl:"上海 2026 上半年接待游客",val:"3.13亿人次",sub:"同比 +17.60%；全要素消费 ¥5433.26亿 (+8.75%)",source:"[official-data] 光明日报, 2026-08-04"},
-      {lbl:"境外游客",val:"531.49万",sub:"同比 +27.82%；前五大客源国：韩/俄/美/泰/马来",source:"[official-data] 光明日报, 2026-08-04"},
-      {lbl:"外滩·陆家嘴·豫园(上半年)",val:"4778万人次",sub:"上海最集中的热门区；迪士尼日均约 7.8万",source:"[official-data] 光明日报, 2026-08-04"}
-    ],
-    legend:[
-      "<b>上海</b>：出发地，但也是国庆高人流城市（#2 热）——宜错峰去外地。",
-      "<b>峰段</b>：9/25 中秋小峰 → 10/1 国庆主峰；10/4 后价格回落。",
-      "<b>建议</b>：选「人少、知名、稳定」的江苏/浙江城市，避开 京沪蓉宁广渝 等拥挤区。"
-    ]
-  },
-  candidates:{
-    table:[
-      {city:"盐城",region:"江苏",C:4,F:3,S:4,M:4,total:15,tag:"rec"},
-      {city:"松阳·丽水",region:"浙江",C:4,F:3,S:4,M:4,total:15,tag:"rec"},
-      {city:"腾冲",region:"云南",C:3,F:4,S:4,M:4,total:15,tag:"rec"},
-      {city:"建水",region:"云南",C:4,F:3,S:4,M:4,total:15,tag:"rec"},
-      {city:"威海",region:"山东",C:4,F:3,S:4,M:4,total:15,tag:"rec"},
-      {city:"大同",region:"山西",C:2,F:4,S:3,M:3,total:12,tag:"watch"},
-      {city:"湖州安吉/莫干山",region:"浙江",C:3,F:3,S:3,M:2,total:11,tag:"watch"},
-      {city:"崇左",region:"广西",C:3,F:3,S:2,M:3,total:11,tag:"watch"},
-      {city:"南京",region:"江苏",C:2,F:4,S:3,M:2,total:11,tag:"exclude"},
-      {city:"北京",region:"北京",C:1,F:5,S:2,M:2,total:10,tag:"exclude"},
-      {city:"上海",region:"上海",C:1,F:5,S:2,M:2,total:10,tag:"exclude"},
-      {city:"成都",region:"四川",C:1,F:5,S:2,M:2,total:10,tag:"exclude"}
-    ],
-    excluded:[
-      {city:"淄博",reason:"烧烤爆火→人流在假期猛增、节后断崖，正是「过度景区营销」典型。"},
-      {city:"天水",reason:"麻辣烫病毒式传播，属爆火-回落曲线，规避。"},
-      {city:"荣昌",reason:"卤鹅带火——「五一」夏布小镇 89.1万(+743.6%)，国庆仅 37.7万(-58%)，断崖最典型。"},
-      {city:"泉州",reason:"世遗+簪花围自 2023-24 起持续营销走热，人流偏高。"},
-      {city:"景德镇",reason:"陶瓷文旅营销热度高。"},
-      {city:"大理 / 西双版纳",reason:"常年高人流/高热度，不符合「人少」目标。"}
-    ],
-    excludedSrc:"排除依据：36Kr/每日经济新闻 2025-10-10（爆火-回落模式）[report-estimate]；2024/25 热门城市数据（第一财经 2024-10-08；文旅部 2025-10-09）。",
-    recText:"按「人流量不大 · 有一定知名度 · 国庆前后人流稳定（无过度景区营销风险）」筛选，最贴合的是 <b>盐城</b>：高铁约 1.5–2h 直达、湿地/荷兰花海/丹顶鹤、有温泉、且零营销炒作（江苏虽为第一热门省份，但盐城属低人流目的地）。<br><b>腾冲</b> 作为「温泉升级 + 真·知名」选择（火山热海/和顺古镇，低-中人流、有机增长）。<b>松阳（丽水）/建水/威海</b> 为备选。<br>已排除：淄博/天水/荣昌（网红爆火后断崖）、泉州/景德镇（营销+高人流）、京沪蓉宁广渝等全国顶级拥挤城市。"
-  },
-  transport:{
-    rows:[
-      {city:"盐城",mode:"高铁 G3144",dir:"去程",date:"9/20–10/10",dur:2.05,price:161,base:161,premium:0,reach:"直达·频密"},
-      {city:"盐城",mode:"动车 D2146",dir:"去程",date:"9/20–10/10",dur:1.80,price:147,base:147,premium:0,reach:"最快 ~1h48m"},
-      {city:"盐城",mode:"动车 D2152",dir:"去程",date:"9/20–10/10",dur:2.13,price:133,base:133,premium:0,reach:"直达盐城大丰(花海/温泉)"},
-      {city:"盐城",mode:"高铁/动车",dir:"返程",date:"10/4–10/7",dur:2.05,price:161,base:161,premium:-20,reach:"返程价较去年低超20%"},
-      {city:"盐城",mode:"高铁(错峰)",dir:"往返",date:"9/22·9/28–30",dur:2,price:150,base:150,premium:-30,reach:"错峰窗口最省"},
-      {city:"丽水",mode:"高铁 G7193",dir:"往返",date:"9/20–10/10",dur:2.60,price:204,base:204,premium:0,reach:"直达·最稳"},
-      {city:"松阳",mode:"城际 C481/C495",dir:"往返",date:"9/20–10/10",dur:5.42,price:159,base:159,premium:0,reach:"每日约2班·较慢"},
-      {city:"威海",mode:"动车 D2152",dir:"往返",date:"9/20–10/10",dur:7.20,price:446,base:446,premium:0,reach:"直达但 ~7h"},
-      {city:"腾冲",mode:"飞机(经昆明)",dir:"去程",date:"9/20–10/10",dur:5.50,price:1500,base:1000,premium:50,reach:"无稳定直达·须中转"},
-      {city:"腾冲",mode:"飞机(往返含中转)",dir:"往返",date:"10/1–10/7",dur:11,price:3200,base:2100,premium:52,reach:"旺季全年高位"},
-      {city:"建水",mode:"飞机+城际",dir:"往返",date:"9/20–10/10",dur:6,price:1200,base:950,premium:26,reach:"经昆明中转"}
-    ],
-    caption:"票价规则：中国<b>高铁/动车/城际为 12306 固定定价</b>，国庆<b>不涨价</b>，溢价只体现在「余票紧张」而非价格；真正涨价的是<b>机票</b>（2025 国庆中秋裸票均价 ¥819，+9.1% 同比，首/末日高、中段低）[report-estimate，界面 2025-09-26]。2026 国庆票价尚未开售，下表按 2025 规律<b>估算</b> [estimate]。",
-    recText:"<b>盐城</b> 综合最优：高铁直达约 <b>2h</b>、二等座 <b>¥133–172</b>（G3144 沪虹→盐城 ¥161、D2146 1h48m ¥147、D2152 直达盐城大丰 ¥133），票价固定、频密、<b>低成本低溢价</b>，往返约 ¥300；选 9/28–30 或 10/4 后出发再省。<br>若把「最便宜 + 最稳」放第一，<b>丽水</b>（G7193，2h36m，¥204）或 <b>松阳</b>（城际 ¥159，但每天约 2 班、较慢）更划算。<br><b>腾冲</b> 为航班中转（经昆明，单程约 5.5h、¥1,200–1,800，往返国庆溢价最高），是「温泉 + 古镇」的高端作价；<b>建水/威海</b> 中转较长。",
-  },
-  play:{
-    primary:{city:"盐城（首选）",
-      hotel:{name:"盐城天沐温泉度假酒店（荷兰花海店）",area:"江苏·盐城·大丰区新丰镇 · 紧邻荷兰花海",band:"估 ¥650–1,100/晚（国庆估；含温泉+花海门票套餐更划算）",
-        features:"<li>真温泉度假酒店，套餐含双人温泉 + 双人荷兰花海门票</li><li>紧邻荷兰花海，<b>步行可达</b>；观夜秀/无人机烟花极方便</li><li>有温泉泳池，适合亲子/休闲</li>",
-        note:"「紧邻景点 + 特色温泉」两点都满足，为主推。备选：大洋湾颐和湖畔酒店（湖畔设计型，约¥1,500–1,700/晚，距离花海约60km，需专车~1h）。",
-        source:"[guide-observation+estimate] 艺龙/去哪儿 2026；套餐 https://piao.qunar.com/daytrip/detail_3252389.html"},
-      access:[
-        {name:"荷兰花海（大丰）",dist:"步行可达（紧邻）",transport:"酒店步行即达；酒店含花海门票。国庆人流高，观夜秀+花车巡游需线上预约。"},
-        {name:"中华麋鹿园（5A）",dist:"约 40 min 车程",transport:"酒店包车/专车；亲子研学热门，人流中-高。"},
-        {name:"大纵湖 / 盐镇水街",dist:"约 1h / 市区",transport:"包车或市区网约车；市区烟火气、秋蟹季。"}
-      ],
-      itinerary:[
-        {day:"DAY 1",title:"上海 → 盐城（市区）",detail:"高铁约 2h 到盐城站；下午大洋湾湿地（距站约 20 min），傍晚盐镇水街夜市。宿亭湖/市区。"},
-        {day:"DAY 2",title:"大丰：荷兰花海 + 温泉",detail:"包车赴大丰（~1h）；下午荷兰花海（酒店步行即达）；傍晚酒店温泉 + 花海夜秀。宿天沐温泉店。"},
-        {day:"DAY 3",title:"中华麋鹿园 → 返程",detail:"上午包车赴中华麋鹿园（距花海约 40 min）；下午返盐城站，高铁回上海。"}
-      ],
-      note:"<b>住哪</b>：以花海+麋鹿园为核心→住<b>大丰</b>（天沐温泉最优，步行逛花海）；要市区烟火气→住亭湖区。<br><b>美食</b>：盐城鸡蛋饼、阜宁大糕、东台鱼汤面、大纵湖大闸蟹、建湖藕粉圆。<br><b>预订</b>：国庆热门赏花期，提前 3–4 周订温泉套餐；无人机/夜秀线上预约；10/1–3、10/6–8 人流最高。"},
-    upgrade:{city:"腾冲（温泉+古镇 升级备选）",
-      hotel:{name:"腾冲和顺柏联酒店（BOLIAN）",area:"云南·腾冲 · 和顺古镇",band:"估 ¥1,000–2,500/晚（国庆估）",
-        features:"<li>顶级园林温泉度假村，露天园林温泉畅泡</li><li>含和顺古镇门票</li><li><b>腾冲机场免费接送机</b>（景区接驳/专车，解决「景点远」痛点）</li>",
-        note:"更温泉/亲子替代：玛御谷悦椿温泉酒店（温泉入户，促销约¥880/晚）；更奢：悦榕庄。和顺/热海距机场约 12km，柏联含接送最省心。⚠️ 银杏村最佳为 11 月中–12 月初，10 月国庆非最佳，可跳过。",
-        source:"[guide-observation+estimate] 永安 2026；https://www.wingontravel.com/hotel/detail?HotelID=1247645"},
-      access:[
-        {name:"和顺古镇",dist:"所在的（含门票）",transport:"酒店步行/园区；侨乡古镇+和顺图书馆。"},
-        {name:"热海（5A）",dist:"约 30–40 min",transport:"包车 ~¥300–500/天；大滚锅煮蛋 + 温泉浴。"},
-        {name:"火山地质公园",dist:"约 30 min",transport:"包车；热气球仅上午且看天气（¥280），建议 D2 早并留备选。"}
-      ],
-      itinerary:[
-        {day:"DAY 1",title:"上海 → 腾冲（和顺）",detail:"上海→昆明转机→腾冲驼峰机场（距市区约 12km）；柏联含免费接机；下午和顺古镇漫游，傍晚夜市/非遗铁花。宿和顺柏联。"},
-        {day:"DAY 2",title:"火山 + 热海",detail:"上午火山地质公园+热气球（包车 ~30 min）；下午热海温泉（大滚锅煮蛋+温泉浴）。宿和顺柏联。"},
-        {day:"DAY 3",title:"国殇墓园 → 返程",detail:"上午国殇墓园+滇西抗战纪念馆（市区，免费）+叠水河瀑布；下午返程。"}
-      ],
-      note:"<b>住哪</b>：主打温泉+古镇→和顺柏联（含机场接送）；专攻温泉/亲子→玛御谷悦椿/悦榕庄。<b>美食</b>：大救驾、腾冲饵丝、土锅子、铜瓢牛肉。<b>提醒</b>：国庆腾冲整体人流大（热海单日峰值约 19,081 人次），建议提前 1 个月订；景区开通免费接驳公交。"}
-  },
-  visa:{
-    note:"本次主推 <b>盐城（境内）</b> 与 <b>腾冲（境内）</b>。若考虑<b>周边国家</b>，可选「人少 + 签证便利」的组合：<b>清迈（泰国·免签30天）</b>、<b>槟城（马来西亚·免签30天）</b>、<b>芽庄（越南·90天电子签）</b>、<b>札幌（日本·需代办）</b>。国庆热门（首尔/曼谷/新加坡/巴厘岛）人流大、机票溢价高，仅作对比。",
-    rows:[
-      {country:"新加坡",type:"免签（无需预申请）",steps:"持中国普通护照直接入境，停留 30 天。",time:"无需",channel:"免签入境",cost:"¥0",source:"[official-data] 新加坡驻沪领馆 2026-08-11"},
-      {country:"泰国（清迈/曼谷）",type:"免签（双边 30 天/次）",steps:"护照直接入境，每次 30 天（180 天内累计 ≤90 天）；9/15/2026 起取消单边 60 天，双边 30 天保留。",time:"无需",channel:"免签入境",cost:"¥0",source:"[official-data] 中国驻泰使馆 2026-09-02"},
-      {country:"马来西亚（槟城）",type:"免签（30 天/次）",steps:"护照直接入境，每次 30 天（180 天内 ≤90 天）；2026-02 起由 90 天调回 30 天。",time:"无需",channel:"免签入境",cost:"¥0",source:"[report-estimate] Fragomen 2026-02-17"},
-      {country:"哈萨克斯坦（阿拉木图）",type:"免签（30 天/次）",steps:"护照直接入境，每次 30 天（180 天内 ≤90 天）。",time:"无需",channel:"免签入境",cost:"¥0",source:"[official-data] 中国驻阿拉木图总领馆 2026-06-04"},
-      {country:"韩国·济州岛",type:"免签（仅直飞/邮轮）",steps:"仅限搭直飞济州的航班/邮轮，停留 30 天；济州以外（首尔/釜山）需办 C-3-9。",time:"无需",channel:"免签（直飞济州）",cost:"¥0",source:"[report-estimate] NOL 2026"},
-      {country:"印尼·巴厘岛",type:"落地签 / e-VOA",steps:"抵达或线上申请 e-VOA，30 天可延长 1 次（+30）；建议官方站点提前 1–7 天申请。",time:"e-VOA 分钟–48h；现场高峰>1h",channel:"molina.imigrasi.go.id / 落地签证柜台",cost:"IDR 500,000 ≈ ¥230/US$33",source:"[report-estimate] Ohana 2026-08"},
-      {country:"日本（需代办）",type:"旅游单次（代理）",steps:"上海领区（沪/苏/浙/皖/赣）须经<b>指定旅行社</b>代办，不能个人直投领馆；提供材料→申请。",time:"约 5 个工作日（领馆收件起）",channel:"指定旅行社代办",cost:"单次 ¥715 / 多次 ¥1,430",source:"[report-estimate] 2026-08-29；费用于驻日使馆官网 [official-data] 2026-06-24"},
-      {country:"韩国（首尔/釜山）",type:"旅游签证 C-3-9 + K-ETA",steps:"大陆护照办 C-3-9；另需 K-ETA（大陆不在免 K-ETA 名单，约 72h–1 周）；2026-01 起入境须电子入境卡。",time:"约 72h–1 周",channel:"韩国签证门户 / 领馆",cost:"以领馆为准",source:"[report-estimate] NOL 2026"},
-      {country:"越南（芽庄）",type:"90 天电子签（e-visa）",steps:"官方门户全线上申请，绑定指定入境口岸；旧「落地批文」方式已停用。",time:"约 3–5 个工作日",channel:"越南官方 e-visa 门户",cost:"单次/多次以官网为准",source:"[report-estimate] 2026-05-18"},
-      {country:"蒙古（乌兰巴托）",type:"K2 电子签",steps:"evisa.mn 在线申请；护照有效期 ≥180 天；非免签、无落地签。",time:"约 72h / 3 个工作日",channel:"evisa.mn",cost:"US$45 + $5 服务费",source:"[report-estimate] 2026-08-30"}
-    ],
-    source:"签证政策均为 2026 年期来源；各国政策可能调整，出行前以官方/使领馆核实为准。",
-  },
+  regionsDom:[
+    {name:"江苏",surge:200,hot:"hot",note:"国庆第1热门省份；盐城/南京/苏州。盐城属其中低人流点。"},
+    {name:"浙江",surge:180,hot:"hot",note:"杭州/湖州/松阳；周边热门但松阳村落安静。"},
+    {name:"四川",surge:190,hot:"hot",note:"成都/九寨沟；成都为驾车热门第1。"},
+    {name:"北京",surge:250,hot:"hot",note:"故宫/国博核心；全国最挤。"},
+    {name:"上海",surge:230,hot:"hot",note:"出发地，也是第2拥挤城市；外滩/迪士尼日均7.8万。"},
+    {name:"新疆·内蒙·甘青",surge:220,hot:"hot",note:"长线秋色热；阿勒泰/呼伦贝尔/喀纳斯。"},
+    {name:"陕西",surge:200,hot:"hot",note:"西安；大雁塔/兵马俑。"},
+    {name:"云南",surge:170,hot:"hot",note:"腾冲/建水/大理/丽江；腾冲属低-中人流。"},
+    {name:"山东",surge:150,hot:"warm",note:"威海/青岛/济南；威海人流低(入住率~52%)。"},
+    {name:"广东",surge:160,hot:"warm",note:"广州；高人流。"},
+    {name:"福建",surge:140,hot:"warm",note:"泉州/平潭；泉州世遗+簪花围营销热。"},
+    {name:"山西",surge:130,hot:"warm",note:"大同/平遥；云冈单日峰值7万。"},
+    {name:"广西",surge:140,hot:"warm",note:"阳朔/崇左；崇左2025受台风影响。"},
+    {name:"安徽",surge:120,hot:"cool",note:"黄山/宏村；人多。"},
+    {name:"贵州",surge:110,hot:"cool",note:"安吉/黄果树；相对低。"}
+  ],
+  regionsIntl:[
+    {name:"韩国",surge:160,hot:"hot",note:"Airbnb 出境热度#2；首尔/济州(济州免签)。"},
+    {name:"泰国",surge:150,hot:"hot",note:"热度#7；曼谷/清迈/普吉。清迈平季较静、免签30天。"},
+    {name:"印尼",surge:140,hot:"hot",note:"热度#9；巴厘岛落地签/电子签。"},
+    {name:"新加坡",surge:130,hot:"warm",note:"免签30天；高人流。"},
+    {name:"日本",surge:120,hot:"warm",note:"热度#5但趋缓(中日摩擦)；东京/关西/北海道(札幌平季较静)。"},
+    {name:"越南",surge:110,hot:"warm",note:"搜索+30%；芽庄/岘港；90天电子签。"},
+    {name:"马来西亚",surge:100,hot:"cool",note:"吉隆坡热/槟城较静；免签30天。"},
+    {name:"哈萨克斯坦",surge:30,hot:"cool",note:"阿拉木图；免签30天；极冷门。"},
+    {name:"蒙古",surge:20,hot:"cool",note:"乌兰巴托；K2电子签；极冷门。"}
+  ],
+  regionNote:"<b>如何读这张图</b>：纵轴为「国庆人流较日常的激增幅度(峰/基%)」——红=高人流拥挤，金/青=相对冷静。上海既是出发地、又是第 2 拥挤城市；<b>江苏为第 1 热门省份</b>。选择逻辑：优先挑 <b>热门省份里相对冷静的城市</b>（如江苏·盐城），或<b>冷门国家里签证友好的</b>（如泰国·清迈）。",
+  cities:[
+    {city:"盐城",region:"江苏",type:"dom",C:4,F:3,S:4,M:4,total:15,verdict:"recommend",note:"高铁~2h、有温泉酒店近景点、零营销炒作"},
+    {city:"松阳·丽水",region:"浙江",type:"dom",C:4,F:3,S:4,M:4,total:15,verdict:"candidate",note:"设计民宿集群、村庄级体量、~3h可达"},
+    {city:"腾冲",region:"云南",type:"dom",C:3,F:4,S:4,M:4,total:15,verdict:"recommend",note:"火山/热海/和顺；真温泉；低-中人流"},
+    {city:"建水",region:"云南",type:"dom",C:4,F:3,S:4,M:4,total:15,verdict:"candidate",note:"低调古城/私汤/曲江温泉；较远"},
+    {city:"威海",region:"山东",type:"dom",C:4,F:3,S:4,M:4,total:15,verdict:"candidate",note:"海滨、人流低(入住率~52%)；5-6h中转"},
+    {city:"清迈",region:"泰国",type:"intl",C:4,F:3,S:4,M:4,total:15,verdict:"recommend",note:"东南亚平季较静；免签30天"},
+    {city:"槟城",region:"马来西亚",type:"intl",C:4,F:3,S:4,M:4,total:15,verdict:"candidate",note:"吉隆坡热/槟城较静；免签30天"},
+    {city:"札幌",region:"日本",type:"intl",C:4,F:3,S:4,M:3,total:14,verdict:"candidate",note:"秋季平季、秋色；需签证(代办~5工作日)"},
+    {city:"阿拉木图",region:"哈萨克斯坦",type:"intl",C:5,F:2,S:4,M:4,total:15,verdict:"candidate",note:"极冷门；免签30天"},
+    {city:"乌兰巴托",region:"蒙古",type:"intl",C:5,F:2,S:4,M:4,total:15,verdict:"candidate",note:"极冷门；K2电子签~3工作日"},
+    {city:"芽庄",region:"越南",type:"intl",C:3,F:3,S:3,M:3,total:12,verdict:"candidate",note:"上升期；90天电子签"},
+    {city:"大同",region:"山西",type:"dom",C:2,F:4,S:3,M:3,total:12,verdict:"exclude",note:"云冈单日峰值7万、8h45m高铁；人流偏高"},
+    {city:"湖州安吉/莫干山",region:"浙江",type:"dom",C:3,F:3,S:3,M:2,total:11,verdict:"exclude",note:"莫干山强势营销；非静谧"},
+    {city:"崇左",region:"广西",type:"dom",C:3,F:3,S:2,M:3,total:11,verdict:"exclude",note:"2025受台风扭曲、数据不具代表性"},
+    {city:"首尔",region:"韩国",type:"intl",C:2,F:4,S:2,M:2,total:10,verdict:"exclude",note:"出境热度#2、极高人流；需签证"},
+    {city:"东京",region:"日本",type:"intl",C:2,F:5,S:3,M:3,total:13,verdict:"watch",note:"高人流但趋缓；需签证(代理)"},
+    {city:"曼谷",region:"泰国",type:"intl",C:2,F:4,S:2,M:2,total:10,verdict:"exclude",note:"极高人流"},
+    {city:"新加坡",region:"新加坡",type:"intl",C:2,F:4,S:2,M:2,total:10,verdict:"exclude",note:"高人流；免签30天"},
+    {city:"巴厘岛",region:"印尼",type:"intl",C:2,F:3,S:2,M:2,total:9,verdict:"exclude",note:"东南亚Top、高人流"}
+  ],
+  excluded:[
+    {city:"淄博",reason:"烧烤爆火，假期猛增、节后断崖（过度景区营销典型）"},
+    {city:"天水",reason:"麻辣烫病毒式传播，爆火-回落曲线"},
+    {city:"荣昌",reason:"卤鹅带火：「五一」89.1万(+743.6%)→国庆37.7万(-58%)，断崖最典型"},
+    {city:"泉州",reason:"世遗+簪花围自2023-24持续营销走热、人流偏高"},
+    {city:"景德镇",reason:"陶瓷文旅营销热度高"},
+    {city:"大理·西双版纳",reason:"常年高人流/高热度，不符「人少」目标"}
+  ],
+  excludedSrc:"依据：36Kr/每日经济新闻 2025-10-10（爆火-回落）[report-estimate]；文旅部 2025-10-09、第一财经 2024-10-08。",
+  cityRecText:"<b>首选：盐城</b>（江苏·高铁~2h·温泉酒店近景点·零营销炒作·人流稳定）+ <b>腾冲</b>(云南·真温泉·和顺古镇·低-中人流) 为国内升级。<b>国外首选：清迈</b>(泰国·免签30天·平季较静)。<b>备选</b>：松阳、建水、威海、槟城、札幌。已排除：淄博/天水/荣昌(营销断崖)、京沪蓉宁广渝等顶级拥挤城市、首尔/曼谷/新加坡/巴厘岛(高人流)。",
+  transport:[
+    {city:"盐城",mode:"rail",modeLabel:"高铁/动车 直达",dur:"约2h",durHr:2,base:161,peak:161,premium:0,source:"https://trains.ctrip.com/trainbooking/shanghai-yancheng2/gaotie",label:"[report-estimate]",note:"G3144 上海虹桥~盐城 2h03m 二等座¥161；D2152直达盐城大丰¥133；固定票价"},
+    {city:"丽水",mode:"rail",modeLabel:"高铁 直达",dur:"约2.6h",durHr:2.6,base:204,peak:204,premium:0,source:"https://www.crecc.com/huoche/g7193.html",label:"[rail-timetable]",note:"G7193 上海南~丽水 ¥204；最稳之选"},
+    {city:"松阳",mode:"rail",modeLabel:"城际 直达",dur:"约5.4h",durHr:5.4,base:159,peak:159,premium:0,source:"https://www.gaotie.com.cn/checi/C481-C484.html",label:"[rail-timetable]",note:"C481/C495 上海南~松阳 ¥159(每日2班、慢)；或丽水高铁+大巴3.2h"},
+    {city:"威海",mode:"rail",modeLabel:"动车 直达",dur:"约7.2h",durHr:7.2,base:446,peak:446,premium:0,source:"https://www.crecc.com/huoche/d2152.html",label:"[rail-timetable]",note:"D2152 上海虹桥~威海 二等座¥446；直达但久"},
+    {city:"腾冲",mode:"flight",modeLabel:"飞机(经昆明转)",dur:"约5.5h",durHr:5.5,base:1000,peak:1500,premium:50,source:"https://howlongfly.hk/flight-time/sha/tcz/",label:"[estimate]",note:"PVG→KMG~3.5h + KMG→TCZ~1.3h；无直达、溢价高、全年旺季高位"},
+    {city:"建水",mode:"flight",modeLabel:"飞机+城际",dur:"约6h",durHr:6,base:950,peak:1200,premium:26,source:"https://www.crecc.com/huoche/c577.html",label:"[estimate]",note:"上海→昆明 + 昆明→建水C577(2h17m ¥75)；或全程高铁~15h"},
+    {city:"清迈",mode:"flight",modeLabel:"直飞 为主",dur:"约4.5h",durHr:4.5,base:1200,peak:1700,premium:42,source:"https://tw.trip.com/flights/city-sha-airport-cnx/",label:"[estimate]",note:"上海(浦东/虹桥~4.5h)直飞；吉祥/春秋等；国庆溢价高"},
+    {city:"槟城",mode:"flight",modeLabel:"直飞/转机",dur:"约5h",durHr:5,base:1100,peak:1500,premium:36,source:"https://tw.trip.com/flights/city-sha-airport-cnx/",label:"[estimate]",note:"~5h；免签30天；机票溢价中等偏高"},
+    {city:"芽庄",mode:"flight",modeLabel:"直飞",dur:"约3.5h",durHr:3.5,base:1000,peak:1400,premium:40,source:"",label:"[estimate]",note:"~3.5h；90天电子签；上升期"},
+    {city:"札幌",mode:"flight",modeLabel:"直飞/转机",dur:"约6h",durHr:6,base:1500,peak:2200,premium:47,source:"",label:"[estimate]",note:"~6h；需签证(代办~5工作日)；秋季平季"},
+    {city:"首尔",mode:"flight",modeLabel:"直飞",dur:"约2h",durHr:2,base:900,peak:1400,premium:56,source:"https://www.trip.com/flights/shanghai-to-seoul/",label:"[estimate]",note:"~2h；¥109起/单程；出境热度#2、溢价极高"},
+    {city:"东京",mode:"flight",modeLabel:"直飞",dur:"约3h",durHr:3,base:1200,peak:1900,premium:58,source:"https://us.trip.com/flights/shanghai-to-tokyo/",label:"[estimate]",note:"~3h；¥141起/单程；人气高但趋缓、溢价极高"},
+    {city:"巴厘岛",mode:"flight",modeLabel:"直飞(漫长)",dur:"约7h",durHr:7,base:1700,peak:2500,premium:47,source:"https://news.airbnb.com/zh/",label:"[estimate]",note:"~6-7h；落地签/电子签；东南亚Top、高溢价"},
+    {city:"新加坡",mode:"flight",modeLabel:"直飞",dur:"约5.5h",durHr:5.5,base:1500,peak:2100,premium:40,source:"",label:"[estimate]",note:"~5.5h；免签30天；高人流、溢价中高"},
+    {city:"阿拉木图",mode:"flight",modeLabel:"转机",dur:"约6h",durHr:6,base:1400,peak:1700,premium:21,source:"",label:"[estimate]",note:"~6h；免签30天；冷门、溢价低"},
+    {city:"乌兰巴托",mode:"flight",modeLabel:"经北京转",dur:"约4.5h",durHr:4.5,base:1300,peak:1600,premium:23,source:"",label:"[estimate]",note:"~4.5h(经北京)；K2电子签；冷门、溢价低"}
+  ],
+  plan:[
+    {city:"盐城",region:"江苏(国内)",tag:"主推 · 短假高性价比",
+      transport:"上海虹桥/上海 → 盐城 高铁约 <b>2h</b>，二等座 <b>¥133–172</b>(G3144/D2146/D2152 直达盐城大丰)，往返约¥300；票价固定、频密、低溢价。返程10/4–7更省。",
+      hotel:{name:"盐城天沐温泉度假酒店(荷兰花海店)",area:"江苏·盐城·大丰区新丰镇 · 紧邻荷兰花海",band:"估 ¥650–1,100/晚",features:["真温泉，套餐含双人温泉+荷兰花海门票","<b>紧邻荷兰花海，步行可达</b>；观夜秀/无人机极方便","有温泉泳池，适合亲子/休闲"],note:"备选：大洋湾颐和湖畔(¥1500-1700/晚，距花海60km需专车)。",source:"[guide-observation+estimate] 艺龙/去哪儿 2026"},
+      sights:[{name:"荷兰花海(大丰)",what:"3000亩百合花海·国庆夜秀/无人机/花车巡游",crowd:"高"},{name:"中华麋鹿园(5A)",what:"世界最大麋鹿保护区",crowd:"中-高"},{name:"大纵湖",what:"湖荡湿地·秋蟹季",crowd:"中"},{name:"盐镇水街",what:"市区烟火气·夜市",crowd:"中"}],
+      routing:[["酒店→荷兰花海","步行即达(紧邻)、酒店含票","约5分钟"],["酒店→中华麋鹿园","酒店包车/专车","约40分钟"],["酒店→大纵湖","包车或市区网约车","约1小时"],["大纵湖↔盐镇水街","市内包车","约30分钟"]],
+      visa:null},
+    {city:"腾冲",region:"云南(国内)",tag:"升级 · 温泉+古镇",
+      transport:"上海→昆明转机→腾冲驼峰机场，全程约 <b>5.5h</b>；经济舱 <b>¥1,200–1,800</b>(国庆溢价最高)。市内包车¥300–500/天；柏联含免费接送机。",
+      hotel:{name:"腾冲和顺柏联酒店(BOLIAN)",area:"云南·腾冲 · 和顺古镇",band:"估 ¥1,000–2,500/晚",features:["顶级园林温泉，露天温泉畅泡","含和顺古镇门票","<b>腾冲机场免费接送机</b>，解决景点远"],note:"替代：玛御谷悦椿温泉(温泉入户,~¥880/晚)；更奢：悦榕庄。⚠️银杏村10月非最佳(11月中-12月初)。",source:"[guide-observation+estimate] 永安 2026"},
+      sights:[{name:"和顺古镇",what:"600年侨乡·和顺图书馆",crowd:"高(17,241/日)"},{name:"热海(5A)",what:"大滚锅煮蛋·天然硫磺泉",crowd:"高(19,081/日)"},{name:"火山地质公园",what:"大空山/小空山·热气球",crowd:"中-高"},{name:"北海湿地",what:"云南唯一国家级湿地·踩草排",crowd:"中"}],
+      routing:[["柏联→和顺古镇","酒店所在(园区/步行)、含门票","0分钟"],["柏联→热海","酒店包车/打车","约30-40分钟"],["柏联→火山地质公园","包车","约30分钟"],["和顺↔热海↔火山","包车¥300-500/天","各约30-40分钟"]],
+      visa:null},
+    {city:"清迈",region:"泰国(国外)",tag:"出国 · 免签 · 平季较静",
+      transport:"上海→清迈直飞约 <b>4.5h</b>；经济舱 <b>¥1,200–1,700</b>(国庆溢价约40%)。机场到老城打车约15-20分钟。",
+      hotel:{name:"清迈老城/湄平河畔特色酒店(如 137 Pillars House 类)",area:"泰国·清迈 · 老城/湄平河边",band:"估 ¥800–2,000/晚",features:["老城 C 位或河畔设计酒店","兰纳美学/殖民宅邸风，有特色","离古城/夜市近，步行可达部分景点"],note:"[guide-observation] 请以 OTA 实时房源为准；不同档次差异大。",source:"[guide-observation+estimate] 2026 清迈酒店攻略"},
+      sights:[{name:"双龙寺(素贴山)",what:"俯瞰清迈全景·金顶寺庙",crowd:"中-高"},{name:"古城/塔佩门/契迪龙寺",what:"老城核心·寺庙群",crowd:"中"},{name:"宁曼路",what:"设计街区·咖啡/小店",crowd:"中"},{name:"周六/周日夜市",what:"古城夜市·小吃/手作",crowd:"高(夜晚)"}],
+      routing:[["酒店→双龙寺","包车/双条车","约30-40分钟"],["酒店→古城","短途车/步行","约10-15分钟"],["古城内(塔佩门↔契迪龙寺)","步行","各5-10分钟"],["酒店→宁曼路","双条车/打车","约15分钟"],["古城→夜市","步行","古城内"]],
+      visa:{type:"免签(双边 30 天/次)",steps:"持中国普通护照直接入境，每次30天(180天内累计≤90天)。注：2026-09-15 起泰国取消单边60天，双边30天保留。",time:"无需提前办理",channel:"免签入境(落地海关)",cost:"¥0",source:"[official-data] 中国驻泰使馆 2026-09-02"}},
+    {city:"槟城",region:"马来西亚(国外)",tag:"出国备选 · 免签",
+      transport:"上海→槟城直飞/转机约 <b>5h</b>；经济舱约 <b>¥1,100–1,500</b>(溢价中高)。",
+      hotel:{name:"乔治镇老宅/姓氏桥附近特色酒店",area:"马来西亚·槟城 · 乔治镇",band:"估 ¥500–1,200/晚",features:["乔治镇世遗区特色老宅/设计酒店","近姓氏桥/壁画/夜市","兰卡威可顺访"],note:"[guide-observation] 请以 OTA 实时为准。",source:"[guide-observation+estimate] 2026"},
+      sights:[{name:"乔治镇(世遗)",what:"壁画/侨生博物馆/姓氏桥",crowd:"中"},{name:"升旗山",what:"缆车俯瞰海港",crowd:"中"},{name:"极乐寺",what:"东南亚最大佛教寺院之一",crowd:"中"}],
+      routing:[["酒店→姓氏桥","步行","约10分钟"],["酒店→升旗山","打车/巴士","约15分钟"],["乔治镇内","Grab/步行","短途"]],
+      visa:{type:"免签(30 天/次)",steps:"护照直接入境，每次30天(180天内≤90天)；2026-02 起由90天调回30天。",time:"无需提前办理",channel:"免签入境",cost:"¥0",source:"[report-estimate] Fragomen 2026-02-17"}}
+  ],
   sources:[
-    {title:"2026年部分节假日安排（国务院）",url:"https://www.gov.cn/gongbao/2025/issue_12406/202511/content_7048922.html",label:"[official-data]",asOf:"2025-11-04"},
-    {title:"2025国庆中秋国内出游 8.88亿人次",url:"https://www.mct.gov.cn/gtb/index.jsp?url=https%3A%2F%2Fwww.mct.gov.cn%2Fwhzx%2Fwhyw%2F202510%2Ft20251009_962532.htm",label:"[official-data]",asOf:"2025-10-09"},
+    {title:"2026年部分节假日安排(国务院)",url:"https://www.gov.cn/gongbao/2025/issue_12406/202511/content_7048922.html",label:"[official-data]",asOf:"2025-11-04"},
+    {title:"2025国庆中秋国内出游8.88亿人次",url:"https://www.mct.gov.cn/gtb/index.jsp?url=https%3A%2F%2Fwww.mct.gov.cn%2Fwhzx%2Fwhyw%2F202510%2Ft20251009_962532.htm",label:"[official-data]",asOf:"2025-10-09"},
     {title:"上海2026上半年旅游数据",url:"https://difang.gmw.cn/sh/2026-08/04/content_38925372.htm",label:"[official-data]",asOf:"2026-08-04"},
-    {title:"2026国庆前瞻（航旅纵横/广州日报）",url:"https://huacheng.gz-cmc.com/pages/2026/08/14/70f03638755d41c1a5a2288d145b3f32.html",label:"[report-estimate]",asOf:"2026-08-14"},
-    {title:"携程/去哪儿/同程 2026国庆预订数据",url:"https://www.ctnews.com.cn/dongtai/content/2026-08/31/content_191366.html",label:"[report-estimate]",asOf:"2026-08-31"},
+    {title:"2026国庆前瞻(航旅纵横)",url:"https://huacheng.gz-cmc.com/pages/2026/08/14/70f03638755d41c1a5a2288d145b3f32.html",label:"[report-estimate]",asOf:"2026-08-14"},
     {title:"Airbnb《2026超级黄金周出境游趋势报告》",url:"https://news.airbnb.com/zh/airbnb爱彼迎发布《2026年超级黄金周出境游趋势报告》",label:"[report-estimate]",asOf:"2026-08-24"},
-    {title:"盐城旅游数据（燕舞集团/A级景区）",url:"https://www.0515yc.cn/ycweb/2025/1354822.html",label:"[official-data]",asOf:"2025-10-10"},
-    {title:"腾冲国庆数据（市政府）",url:"https://tengchong.gov.cn/info/1014/5746043.htm",label:"[official-data]",asOf:"2025-10-13"},
-    {title:"上海→盐城 高铁（携程）",url:"https://trains.ctrip.com/trainbooking/shanghai-yancheng2/gaotie",label:"[report-estimate]",asOf:"2026-09-09"},
-    {title:"上海→腾冲 航班/转机",url:"https://howlongfly.hk/flight-time/sha/tcz/",label:"[estimate]",asOf:"2026"},
-    {title:"2025国庆票价纪律（界面新闻）",url:"https://m.jiemian.com/article/13406832.html",label:"[report-estimate]",asOf:"2025-09-26"},
-    {title:"日本/蒙古/越南 签证指南",url:"https://www.travelarbitrage.net/blog/japan-tourist-visa-2026-complete-guide",label:"[report-estimate]",asOf:"2026-08-29"}
+    {title:"盐城旅游数据",url:"https://www.0515yc.cn/ycweb/2025/1354822.html",label:"[official-data]",asOf:"2025-10-10"},
+    {title:"腾冲国庆数据(市政府)",url:"https://tengchong.gov.cn/info/1014/5746043.htm",label:"[official-data]",asOf:"2025-10-13"},
+    {title:"上海→盐城 高铁(携程)",url:"https://trains.ctrip.com/trainbooking/shanghai-yancheng2/gaotie",label:"[report-estimate]",asOf:"2026-09-09"},
+    {title:"上海→东京/首尔/清迈 航班(trip)",url:"https://us.trip.com/flights/shanghai-to-tokyo/",label:"[estimate]",asOf:"2026"},
+    {title:"泰国签证(中国驻泰使馆)",url:"https://th.china-embassy.gov.cn/sgxw/202609/t20260902_12014753.html",label:"[official-data]",asOf:"2026-09-02"},
+    {title:"马来西亚免签(Fragomen)",url:"https://www.fragomen.com/insights/malaysia-visa-exemption-implemented-for-chinese-and-indian-nationals.html",label:"[report-estimate]",asOf:"2026-02-17"},
+    {title:"2025国庆票价纪律(界面新闻)",url:"https://m.jiemian.com/article/13406832.html",label:"[report-estimate]",asOf:"2025-09-26"}
   ],
   labels:[
     {k:"[official-data]",d:"官方统计/公告"},
     {k:"[report-estimate]",d:"OTA/机构报告与预测"},
     {k:"[news-forecast]",d:"媒体预测/新闻"},
-    {k:"[estimate]",d:"历史行为推算，已标注"},
+    {k:"[rail-timetable]",d:"12306/列车时刻(较可靠)"},
+    {k:"[estimate]",d:"历史/推导估算，已标注"},
+    {k:"[guide-observation]",d:"攻略定性，需核实"},
     {k:"[unverified]",d:"未能核实，需自行确认"}
   ]
 };
 
-/* ---------- render helpers ---------- */
-function el(html){const t=document.createElement("template");t.innerHTML=html.trim();return t.content.firstChild}
-function badge(tag){
-  if(tag==="rec")return '<span class="pill gold flag">推荐</span>';
-  if(tag==="exclude")return '<span class="pill warn flag">排除</span>';
-  if(tag==="watch")return '<span class="pill flag">关注</span>';
-  return '<span class="pill flag">备选</span>';
-}
-function score(c){
-  let h='<span class="scorecell">';
-  for(let i=1;i<=5;i++){h+=`<span class="bar ${i<=c?'on':''}"></span>`}
-  return h+'</span>';
-}
+/* ---------- helpers ---------- */
+function el(h){const t=document.createElement("template");t.innerHTML=h.trim();return t.content.firstChild}
+const INK="#171f28",VERM="#bb3a2c",GOLD="#c5922f",TEAL="#2c6b66",SLATE="#4c6f8f",MUTED="#7c7466";
+function chart(id,opt){if(!id||!echarts)return;const c=echarts.init(document.getElementById(id));if(opt)c.setOption(opt);return c}
+function badge(v){if(v==="recommend")return '<span class="pill gold">推荐</span>';if(v==="candidate")return '<span class="pill ok">候选</span>';if(v==="watch")return '<span class="pill slate">关注</span>';return '<span class="pill warn">排除</span>'}
+function score(c){let h='<span class="scorecell">';for(let i=1;i<=5;i++)h+=`<span class="bar ${i<=c?'on':''}"></span>`;return h+'</span>'}
 
 /* hero */
-const hs=document.getElementById("heroStats");
-const frag=document.createDocumentFragment();
-DATA.hero.stats.forEach(s=>{
-  const card=el(`<div class="stat"><div class="lbl">${s.lbl}</div><div class="val num">${s.val}</div><div class="sub">${s.sub}</div></div>`);
-  frag.appendChild(card);
+const hs=document.getElementById("heroStats");DATA.hero.stats.forEach(s=>hs.appendChild(el(`<div class="stat"><div class="lbl">${s.lbl}</div><div class="val num">${s.val}</div><div class="sub">${s.sub}</div></div>`)));
+
+/* nav active */
+const ids=["regions","cities","transport","plan"];
+window.addEventListener("scroll",()=>{let cur="regions";ids.forEach(id=>{const e=document.getElementById(id);if(e&&e.getBoundingClientRect().top<130)cur=id});document.querySelectorAll(".nav a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+cur))},{passive:true});
+
+/* ---------- PART 1 regions ---------- */
+const hotColor=d=>d==="hot"?VERM:(d==="warm"?GOLD:SLATE);
+function regionChart(id,data){return chart(id,{grid:{left:8,right:16,top:16,bottom:8,containLabel:true},tooltip:{trigger:"axis",axisPointer:{type:"shadow"}},
+  xAxis:{type:"value",name:"激增 峰/基%",nameTextStyle:{color:MUTED},textStyle:{color:MUTED}},
+  yAxis:{type:"category",data:[...data].reverse().map(d=>d.name),textStyle:{color:INK}},
+  series:[{type:"bar",barWidth:"58%",data:[...data].reverse().map(d=>({value:d.surge,itemStyle:{color:hotColor(d.hot),borderRadius:[0,4,4,0]}})),
+    label:{show:true,position:"right",formatter:"+{c}%",fontFamily:"Space Grotesk",color:MUTED}}]})}
+regionChart("chartRegionsDom",DATA.regionsDom);
+regionChart("chartRegionsIntl",DATA.regionsIntl);
+document.getElementById("chartRegionsDomCaption").innerHTML="国内省份 · 国庆人流激增幅度（红=高人流、金=中、青=低）[report-estimate/estimate]";
+document.getElementById("chartRegionsIntlCaption").innerHTML="周边国家 · 国庆人流激增幅度（红=高人流、金=中、青=低）[report-estimate/estimate]";
+const rc=document.getElementById("regionCards");
+function regionCard(r,t){return `<div class="card"><div style="font-weight:600">${r.name}<span class="region-badge">${t}</span></div><div class="num" style="font-size:1.3rem;color:${hotColor(r.hot)};margin:.2rem 0">国庆 +${r.surge}%</div><div style="font-size:.86rem;color:var(--ink-soft)">${r.note}</div></div>`}
+DATA.regionsDom.forEach(r=>rc.appendChild(el(regionCard(r,"国内·省"))));
+DATA.regionsIntl.forEach(r=>rc.appendChild(el(regionCard(r,"国际·国家"))));
+document.getElementById("regionNote").innerHTML=DATA.regionNote;
+
+/* ---------- PART 2 ---------- */
+const ctb=document.querySelector("#cityTable tbody");
+DATA.cities.forEach(c=>{const tr=document.createElement("tr");tr.innerHTML=`<td style="font-weight:600">${c.city}</td><td>${c.region}</td><td>${c.type==='dom'?'<span class="pill slate">国内</span>':'<span class="pill gold">国际</span>'}</td><td>${score(c.C)}</td><td>${score(c.F)}</td><td>${score(c.S)}</td><td>${score(c.M)}</td><td class="num" style="font-weight:600">${c.total}</td><td>${badge(c.verdict)}</td>`;ctb.appendChild(tr)});
+const recs=DATA.cities.filter(c=>c.verdict==="recommend");
+chart("chartCityScore",{grid:{left:8,right:16,top:30,bottom:8,containLabel:true},tooltip:{trigger:"axis"},legend:{data:["人流C","知名F","稳定S","营销M"],textStyle:{color:MUTED},top:0},
+  xAxis:{type:"category",data:recs.map(c=>c.city)},yAxis:{type:"value",max:5},
+  series:[{name:"人流C",type:"bar",barMaxWidth:24,data:recs.map(c=>c.C),itemStyle:{color:TEAL}},{name:"知名F",type:"bar",barMaxWidth:24,data:recs.map(c=>c.F),itemStyle:{color:GOLD}},{name:"稳定S",type:"bar",barMaxWidth:24,data:recs.map(c=>c.S),itemStyle:{color:SLATE}},{name:"营销M",type:"bar",barMaxWidth:24,data:recs.map(c=>c.M),itemStyle:{color:VERM}}]});
+const ex=document.getElementById("excludedList");DATA.excluded.forEach(e=>ex.appendChild(el(`<div style="padding:.45rem 0;border-bottom:1px solid var(--line)"><b>${e.city}</b> — ${e.reason}</div>`)));
+document.getElementById("excludedSrc").innerHTML=DATA.excludedSrc;
+document.getElementById("cityRecText").innerHTML=DATA.cityRecText;
+
+/* ---------- PART 3 transport ---------- */
+function priceSeries(t){const base=t.base,peak=t.peak;return DATES.map((d,i)=>Math.round(base+(peak-base)*NORM[i]))}
+const tg=document.getElementById("transportGrid");
+DATA.transport.forEach(t=>{
+  const card=document.createElement("div");card.className="card";
+  const series=priceSeries(t),flat=t.mode==="rail";
+  card.innerHTML=`<div class="head"><span class="city">${t.city}</span><span class="srcline">${t.label}</span></div>
+    <div class="chart sm" id="tc-${t.city}"></div>
+    <div class="stat-row"><span>方式 <b>${t.modeLabel}</b></span><span>时长 <b>${t.dur}</b></span><span>低价 <b>¥${Math.min.apply(null,series)}</b></span><span>峰值 <b>¥${Math.max.apply(null,series)}</b></span><span style="color:${t.premium>30?VERM:'#2c6b66'}">溢价 <b>+${t.premium}%</b></span></div>
+    <p class="srcline" style="margin-top:.5rem">${t.note}</p>`;
+  tg.appendChild(card);
+  chart("tc-"+t.city,{
+    grid:{left:6,right:8,top:14,bottom:4,containLabel:true},
+    tooltip:{trigger:"axis",formatter:function(ps){return ps[0].axisValue+"<br>¥"+ps[0].value;}},
+    xAxis:{type:"category",data:DATES,axisLabel:{show:false},axisTick:{show:false}},
+    yAxis:{type:"value",axisLabel:{formatter:"¥{value}"},splitLine:{lineStyle:{color:"#eee"}}},
+    series:[{type:"line",data:series,smooth:true,symbol:"none",lineStyle:{color:flat?SLATE:VERM,width:2,type:flat?"dashed":"solid"},areaStyle:{color:flat?"rgba(76,111,143,.08)":"rgba(187,58,44,.12)"}}]
+  });
 });
-hs.appendChild(frag);
+document.getElementById("transportNote").innerHTML="<b>读图</b>：每卡为「9/20–10/10 含税价格曲线」。<b>高铁/动车</b>(盐城/丽水/松阳/威海)为 12306 <b>固定票价</b>，曲线平、假期不涨价，只有余票紧张；<b>机票</b>(其余)随假期波动——9/25 中秋小峰、10/1–3 国庆主峰、10/4 后回落(2025 国庆裸票均价 ¥819、+9.1%)。2026 票价未开售，价格为 <b>[estimate]</b>。";
 
-/* nav active on scroll */
-const secIds=["overview","crowd","filter","transport","play","visa"];
-window.addEventListener("scroll",()=>{
-  let cur=secIds[0];
-  secIds.forEach(id=>{const e=document.getElementById(id);if(e&&e.getBoundingClientRect().top<120)cur=id});
-  document.querySelectorAll(".nav a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+cur));
-},{passive:true});
-
-/* ---------- charts ---------- */
-function chart(id,opt){if(!id||!echarts)return;const c=echarts.init(document.getElementById(id));c.setOption(opt);return c}
-const paper=window.getComputedStyle(document.documentElement);
-const INK=paper.getPropertyValue("--ink").trim()||"#161e27";
-const VERM=paper.getPropertyValue("--verm").trim()||"#bb3a2c";
-const GOLD=paper.getPropertyValue("--gold").trim()||"#c79a3a";
-const TEAL=paper.getPropertyValue("--teal").trim()||"#2d6b66";
-const MUTED=paper.getPropertyValue("--muted").trim()||"#7c7466";
-
-function axisBase(){return {grid:{left:8,right:14,top:24,bottom:8,containLabel:true},textStyle:{color:MUTED,fontFamily:"Noto Sans SC"}}}
-
-/* crowd curve */
-if(DATA.crowd.flowCurve.length){
-  chart("crowdCurve",{
-    title:{text:"9/20–10/10 人流曲线(示意)",textStyle:{fontFamily:"Noto Serif SC",fontSize:15,color:INK}},
-    tooltip:{trigger:"axis"},
-    legend:{data:["平时基线","中秋小峰","国庆主峰"],textStyle:{color:MUTED},top:0},
-    ...axisBase(),
-    xAxis:{type:"category",data:DATA.crowd.flowCurve.map(d=>d.date)},
-    yAxis:{type:"value",name:"人流指数"},
-    series:[
-      {name:"平时基线",type:"line",stack:"f",data:DATA.crowd.flowCurve.map(d=>d.base),smooth:true,lineStyle:{color:MUTED,type:"dashed"},itemStyle:{color:MUTED},areaStyle:{color:"rgba(124,116,102,.08)"}},
-      {name:"中秋小峰",type:"line",stack:"f",data:DATA.crowd.flowCurve.map(d=>d.mid),smooth:true,lineStyle:{color:GOLD},itemStyle:{color:GOLD},areaStyle:{color:"rgba(199,154,58,.12)"}},
-      {name:"国庆主峰",type:"line",stack:"f",data:DATA.crowd.flowCurve.map(d=>d.nat),smooth:true,lineStyle:{color:VERM},itemStyle:{color:VERM},areaStyle:{color:"rgba(187,58,44,.14)"}}
-    ]
-  });
-  document.getElementById("crowdCurveCaption").innerHTML=DATA.crowd.flowCaption||"";
-}
-/* crowd city bar */
-if(DATA.crowd.cityTop.length){
-  const cs=[...DATA.crowd.cityTop].reverse();
-  chart("crowdCity",{
-    title:{text:"国庆人流拥挤度 TOP 城市(示意)",textStyle:{fontFamily:"Noto Serif SC",fontSize:15,color:INK}},
-    grid:{left:8,right:14,top:30,bottom:8,containLabel:true},
-    tooltip:{},
-    xAxis:{type:"value",name:"拥挤度",textStyle:{color:MUTED}},
-    yAxis:{type:"category",data:cs.map(c=>c.city),textStyle:{color:INK}},
-    series:[{type:"bar",data:cs.map(c=>c.value),barWidth:"58%",itemStyle:{color:VERM,borderRadius:[0,4,4,0]}}]
-  });
-  document.getElementById("crowdCityCaption").innerHTML=DATA.crowd.cityCaption||"";
-}
-/* shanghai cards */
-const scN=document.getElementById("shanghaiCards");
-if(DATA.crowd.shanghai.length){
-  DATA.crowd.shanghai.forEach(s=>scN.appendChild(el(`<div class="card"><div class="lbl" style="font-size:.8rem;color:var(--muted)">${s.lbl}</div><div class="num" style="font-size:1.5rem;font-weight:600;margin:.2rem 0">${s.val}</div><div style="font-size:.88rem;color:var(--ink-soft)">${s.sub}</div><p class="src" style="margin-top:.4rem">${s.source}</p></div>`)));
-}
-if(DATA.crowd.legend.length){
-  document.getElementById("crowdLegend").innerHTML=DATA.crowd.legend.map(l=>`<span>${l}</span>`).join("");
-}
-
-/* score table */
-const stb=document.querySelector("#scoreTable tbody");
-DATA.candidates.table.forEach(row=>{
-  const tr=document.createElement("tr");
-  tr.innerHTML=`<td style="font-weight:600">${row.city}</td><td>${row.region}</td><td>${score(row.C)}</td><td>${score(row.F)}</td><td>${score(row.S)}</td><td>${score(row.M)}</td><td class="num" style="font-weight:600">${row.total}</td><td>${badge(row.tag)}</td>`;
-  stb.appendChild(tr);
+/* ---------- PART 4 plans ---------- */
+const plans=document.getElementById("plans");
+DATA.plan.forEach(p=>{
+  const d=document.createElement("div");d.className="plan card";d.style.marginTop="1rem";
+  const visaHtml=p.visa?'<div class="block"><h4>签证 · 入境</h4><table><tbody><tr><td style="width:76px">类型</td><td><b>'+p.visa.type+'</b></td></tr><tr><td>流程</td><td>'+p.visa.steps+'</td></tr><tr><td>时间</td><td>'+p.visa.time+'</td></tr><tr><td>渠道</td><td>'+p.visa.channel+'</td></tr><tr><td>费用</td><td>'+p.visa.cost+'</td></tr></tbody></table><p class="srcline">'+p.visa.source+'</p></div>':'';
+  d.innerHTML=`<div class="p-head"><div><h3>${p.city} <span class="pill gold">${p.tag}</span></h3><div class="sub">${p.region}</div></div></div>
+    <div class="block"><h4>交通 · 上海出发</h4><p style="font-size:.94rem">${p.transport}</p></div>
+    <div class="block"><h4>住宿 · ${p.hotel.name}</h4><div style="font-size:.9rem;color:var(--ink-soft)">${p.hotel.area} · <b class="num">${p.hotel.band}</b></div><ul style="margin:.5rem 0 0 1rem;color:var(--ink-soft);font-size:.92rem">${p.hotel.features.map(f=>'<li>'+f+'</li>').join('')}</ul><p style="margin-top:.4rem;font-size:.86rem;color:var(--ink-soft)">${p.hotel.note}</p><p class="srcline">${p.hotel.source}</p></div>
+    <div class="block"><h4>景点</h4><table><thead><tr><th>景点</th><th>看点</th><th>人流</th></tr></thead><tbody>${p.sights.map(s=>`<tr><td style="font-weight:600">${s.name}</td><td>${s.what}</td><td>${s.crowd}</td></tr>`).join('')}</tbody></table></div>
+    <div class="block"><h4>住宿 ↔ 景点 · 景点之间 接驳</h4><ol class="route">${p.routing.map(r=>`<li><b>${r[0]}</b> · ${r[2]} — <span class="how">${r[1]}</span></li>`).join('')}</ol></div>
+    ${visaHtml}`;
+  plans.appendChild(d);
 });
-/* score chart */
-if(DATA.candidates.table.length){
-  const top=DATA.candidates.table.filter(r=>r.tag==="rec").slice(0,5).reverse();
-  chart("scoreChart",{
-    title:{text:"推荐城市得分拆解",textStyle:{fontFamily:"Noto Serif SC",fontSize:15,color:INK}},
-    tooltip:{trigger:"axis"},
-    legend:{data:["人流 C","知名 F","稳定 S","营销 M"],textStyle:{color:MUTED},top:0},
-    ...axisBase(),
-    xAxis:{type:"category",data:top.map(r=>r.city)},
-    yAxis:{type:"value",max:5},
-    series:[
-      {name:"人流 C",type:"bar",data:top.map(r=>r.C),barMaxWidth:26,itemStyle:{color:TEAL}},
-      {name:"知名 F",type:"bar",data:top.map(r=>r.F),barMaxWidth:26,itemStyle:{color:GOLD}},
-      {name:"稳定 S",type:"bar",data:top.map(r=>r.S),barMaxWidth:26,itemStyle:{color:"#4c6f8f"}},
-      {name:"营销 M",type:"bar",data:top.map(r=>r.M),barMaxWidth:26,itemStyle:{color:VERM}}
-    ]
-  });
-}
-/* excluded */
-const exd=document.getElementById("excludedList");
-if(DATA.candidates.excluded.length){
-  DATA.candidates.excluded.forEach(e=>exd.appendChild(el(`<div style="padding:.5rem 0;border-bottom:1px solid var(--line)"><b>${e.city}</b> — ${e.reason}</div>`)));
-}
-document.getElementById("excludedSrc").innerHTML=DATA.candidates.excludedSrc||"";
-document.getElementById("filterRecText").textContent=DATA.candidates.recText||"";
 
-/* route table */
-const rtb=document.querySelector("#routeTable tbody");
-DATA.transport.rows.forEach(r=>{
-  const tr=document.createElement("tr");
-  const prem=r.premium==null?"—":(r.premium>0?"+"+r.premium+"%":r.premium+"%");
-  const pColor=r.premium>35?"var(--warn)":(r.premium>15?"#8a671f":"var(--ok)");
-  tr.innerHTML=`<td style="font-weight:600">${r.city}</td><td>${r.mode}</td><td>${r.dir}</td><td>${r.date}</td><td class="num">${r.dur}</td><td class="num">${r.price}</td><td class="num">${r.base}</td><td class="num" style="color:${pColor};font-weight:600">${prem}</td><td>${r.reach}</td>`;
-  rtb.appendChild(tr);
-});
-if(DATA.transport.rows.length){
-  const top=[...DATA.transport.rows].sort((a,b)=>(b.premium||0)-(a.premium||0)).slice(0,8).reverse();
-  chart("transportChart",{
-    title:{text:"各方式·国庆溢价(示意)",textStyle:{fontFamily:"Noto Serif SC",fontSize:15,color:INK}},
-    tooltip:{},
-    ...axisBase(),
-    xAxis:{type:"value",axisLabel:{formatter:"{value}%"}},
-    yAxis:{type:"category",data:top.map(r=>r.city+" · "+r.mode),textStyle:{color:INK}},
-    series:[{type:"bar",data:top.map(r=>r.premium||0),barWidth:"58%",itemStyle:{color:c=>c.value>35?VERM:(c.value>15?GOLD:TEAL),borderRadius:[0,4,4,0]}}]
-  });
-}
-document.getElementById("transportRecText").textContent=DATA.transport.recText||"";
-document.getElementById("transportCaption").innerHTML=DATA.transport.caption||"";
-
-/* play renderer (primary + upgrade) */
-function renderPlan(plan,hotelTarget,accessTarget,itinTarget,noteTarget){
-  if(!plan)return;
-  if(hotelTarget){
-    if(plan.hotel&&plan.hotel.name){
-      hotelTarget.innerHTML=`<div style="font-size:1.25rem;font-weight:700">${plan.hotel.name}</div>
-        <div style="color:var(--ink-soft);margin:.2rem 0 .6rem">${plan.hotel.area}</div>
-        <div><span class="pill gold">参考价</span> <b class="num">${plan.hotel.band}</b></div>
-        <ul style="margin:.7rem 0 0 1rem;color:var(--ink-soft);font-size:.94rem">${plan.hotel.features}</ul>
-        <p style="margin-top:.6rem;color:var(--ink-soft);font-size:.9rem">${plan.hotel.note}</p>
-        <p class="src">${plan.hotel.source}</p>`;
-    }else{hotelTarget.innerHTML='<p style="color:var(--muted)">住宿数据整理中…</p>'}
-  }
-  if(accessTarget&&plan.access&&plan.access.length){
-    plan.access.forEach(a=>accessTarget.appendChild(el(`<div style="padding:.6rem 0;border-bottom:1px solid var(--line)"><b>${a.name}</b> · <span class="num">${a.dist}</span><div style="color:var(--ink-soft);font-size:.92rem">${a.transport}</div></div>`)));
-  }
-  if(itinTarget&&plan.itinerary&&plan.itinerary.length){
-    plan.itinerary.forEach(d=>itinTarget.appendChild(el(`<li><span class="day">${d.day}</span><span class="t">${d.title}</span><span class="d">${d.detail}</span></li>`)));
-  }
-  if(noteTarget&&plan.note){noteTarget.innerHTML=plan.note}
-}
-const pp=DATA.play.primary;
-if(pp){
-  document.getElementById("primaryCity").textContent=pp.city;
-  document.getElementById("primaryCity2").textContent=pp.city;
-  renderPlan(pp,document.getElementById("hotelBody"),document.getElementById("accessBody"),document.getElementById("itinerary"),document.getElementById("itineraryNote"));
-}
-const pu=DATA.play.upgrade;
-if(pu){
-  document.getElementById("upgradeTitle").textContent=pu.city;
-  renderPlan(pu,document.getElementById("upgradeHotel"),null,document.getElementById("upgradeItinerary"),document.getElementById("upgradeNote"));
-}
-
-/* visa */
-if(DATA.visa.rows.length){
-  document.getElementById("visaBody").innerHTML=`<p>${DATA.visa.note}</p>`;
-  const vt=document.getElementById("visaTable");vt.style.display="table";
-  const vb=vt.querySelector("tbody");
-  DATA.visa.rows.forEach(r=>{
-    const tr=document.createElement("tr");
-    tr.innerHTML=`<td style="font-weight:600">${r.country}</td><td>${r.type}</td><td>${r.steps}</td><td class="num">${r.time}</td><td>${r.channel}</td><td class="num">${r.cost}</td>`;
-    vb.appendChild(tr);
-  });
-  document.getElementById("visaSrc").innerHTML=DATA.visa.source||"";
-}
-
-/* sources + labels */
-const sl=document.getElementById("sourceList");
-DATA.sources.forEach(s=>sl.appendChild(el(`<li><a href="${s.url}" target="_blank" rel="noopener">${s.title}</a><span style="display:block;color:var(--muted);font-size:.78rem">${s.label} · ${s.asOf}</span></li>`)));
-const ll=document.getElementById("labelList");
-DATA.labels.forEach(l=>ll.appendChild(el(`<span><b>${l.k}</b> — ${l.d}</span>`)));
+/* ---------- footer ---------- */
+const sl=document.getElementById("sourceList");DATA.sources.forEach(s=>sl.appendChild(el(`<li><a href="${s.url}" target="_blank" rel="noopener">${s.title}</a><span style="display:block;color:var(--muted);font-size:.76rem">${s.label} · ${s.asOf}</span></li>`)));
+const ll=document.getElementById("labelList");DATA.labels.forEach(l=>ll.appendChild(el(`<span><b>${l.k}</b> — ${l.d}</span>`)));
 </script>
 </body>
 </html>
