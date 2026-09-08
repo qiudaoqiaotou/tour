@@ -1,0 +1,20 @@
+# OS / editor
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node (skill scripts may generate)
+node_modules/
+
+# Scratch
+tmp/
+*.tmp
+
+# Large generated artifacts if any
+*.log

@@ -1,0 +1,15 @@
+city,item_type,name,detail,distance_from_hotel,transport,source,label,as_of,note
+盐城,hotel,盐城天沐温泉度假酒店（荷兰花海店）,真温泉度假酒店·套餐含双人温泉+荷兰花海门票,紧邻荷兰花海(步行可达),步行,https://piao.qunar.com/daytrip/detail_3252389.html,[guide-observation+estimate],2026,国庆估¥650–1100/晚
+盐城,hotel,大洋湾颐和湖畔酒店（备选）,湖畔设计度假酒店,距花海约60km(需专车~1h),专车,, [estimate],2026,约¥1500–1700/晚;无独立温泉
+盐城,attraction,荷兰花海（大丰）,3000亩百合花海·国庆夜秀/无人机/花车巡游,步行可达(酒店),步行+线上预约,https://m.dahepiao.com/news/20250926532007.html,[guide-observation],2025-09-26,成人¥50;国庆人流高
+盐城,attraction,中华麋鹿园（5A）,世界最大麋鹿保护区,约40min车程,酒店包车/专车,https://www.toutiao.com/w/1864177445207179/,[guide-observation],2026,门票约¥50;人流中-高
+盐城,attraction,大纵湖 / 盐镇水街,湖荡湿地/市区烟火气·秋蟹季,大纵湖约1h,包车或网约车,https://www.jianshu.com/p/93a397bf5d5c,[guide-observation],2026,-
+盐城,meal,盐城鸡蛋饼/阜宁大糕/东台鱼汤面,本地小吃,,,,[guide-observation],2026,-
+盐城,plan,3天2晚行程,Day1市区大洋湾→Day2大丰花海+温泉→Day3麋鹿园返程,,,,[estimate],2026,高铁约2h;包车¥400–600/天
+腾冲,hotel,腾冲和顺柏联酒店（BOLIAN）,顶级园林温泉度假村·含和顺古镇门票,位于和顺古镇,机场免费接送机,https://www.wingontravel.com/hotel/detail?HotelID=1247645,[guide-observation+estimate],2026,估¥1000–2500/晚;含接驳
+腾冲,hotel,玛御谷悦椿温泉酒店（备选）,温泉入户·亲子/稻花鱼节庆,距和顺/热海15–20km,打车/包车,https://www.angsana.com/cn/china/tengchong,[report-estimate],2025,-;更奢:悦榕庄
+腾冲,attraction,和顺古镇,600年侨乡·和顺图书馆,酒店所在(含门票),步行/园区,https://tengchong.gov.cn/info/1014/5746043.htm,[official-data],2025-10-13,门票¥55/3天;单日峰值17241人
+腾冲,attraction,热海（5A）,大滚锅96℃煮蛋·天然硫磺泉,约30–40min车程,包车¥300–500/天,https://tengchong.gov.cn/info/1014/5746043.htm,[official-data],2025-10-13,门票¥50·温泉套票¥268;单日峰值19081人
+腾冲,attraction,火山地质公园+热气球,大空山/小空山·热气球¥280,约30min车程,包车,, [guide-observation],2026-07,热气球仅上午/看天气
+腾冲,attraction,北海湿地,云南唯一国家级湿地·踩草排,约—,包车,, [guide-observation],2026-07,游玩60元
+腾冲,note,银杏村10月非最佳,金期为11月中–12月初,约40km/1h,包车,, [guide-observation],2026-07,不必为它专程
